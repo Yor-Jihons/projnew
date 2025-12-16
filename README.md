@@ -1,131 +1,76 @@
-# projnew
+# 💾 projnew: Project Template Cloning Tool
 
-## 🌟 `projnew`: The Cross-Platform Project Initializer
+`projnew` is a cross-platform command-line tool designed to quickly scaffold new projects using existing Git repositories as templates. It supports powerful features like file content replacement and automated setup actions after cloning.
 
-`projnew` is a simple, command-line tool designed to streamline new project creation from Git template repositories. It handles cloning, file content replacement (e.g., project name, year), Git history cleanup, and automated post-setup actions.
+## Installation
 
-### Why `projnew`?
+**(Instructions for installation will go here once deployment method is finalized, e.g., using `dotnet tool install`.)**
 
-  * **Fast Setup:** Start development immediately without manual file edits.
-  * **Template Driven:** Use any Git repository as a template.
-  * **Automated Setup:** Run shell commands (e.g., `npm install`, `dotnet restore`) automatically after cloning.
+## Usage
 
-## 🚀 Installation
+### 1. Create a New Project
 
-### Prerequisites
-
-  * **.NET 8.0 SDK** or later.
-  * **Git** command line tool installed and accessible via your system's PATH.
-
-### Installation Steps
+The main command clones a specified template ID into a new directory named after the project name.
 
 ```bash
-# TODO: Add specific installation command (e.g., global tool install)
-# Example: dotnet tool install -g projnew.cli
+projnew <TemplateID> <ProjectName>
 ```
 
-## 📋 Usage
-
-`projnew` supports two main modes: creating a project and listing available templates.
-
-### 1\. Creating a New Project (Main Command)
-
-Use the template ID defined in `projnew.templates.json` and specify the desired new project name.
+**Example:**
+To create a new project named `my-new-app` using the template defined as `electron`:
 
 ```bash
-projnew <TEMPLATE_ID> <PROJECT_NAME>
+projnew electron my-new-app
 ```
 
-| Argument | Description | Example |
-| :--- | :--- | :--- |
-| `<TEMPLATE_ID>` | The unique ID of the template (e.g., `electron`, `dotnet-api`). | `electron` |
-| `<PROJECT_NAME>` | The name of the new directory to be created. | `my-new-app` |
+### 2\. List Available Templates
 
-### Options
-
-| Option | Aliases | Description |
-| :--- | :--- | :--- |
-| `--keep-history` | `-k`, `--keep-git` | **Prevents** deletion of the template's Git history (`.git` directory) and skips the new `git init`. |
-
-### 2\. Listing Available Templates (Subcommand)
-
-Displays all templates defined in your local `projnew.templates.json` file.
+To see all templates defined in your configuration file:
 
 ```bash
 projnew list
-# Alias: projnew ls
 ```
 
-**Example Output:**
+### 3\. Force Configuration Generation (`-g`)
 
-```
-Available Templates:
----------------------------------------------------------------------------------
-ID            | Description
----------------------------------------------------------------------------------
-electron      | Boilerplate for Electron + React + TypeScript
-dotnet-api    | C# .NET 8 Web API (Minimal API) template
----------------------------------------------------------------------------------
+To manually generate the default configuration file:
+
+```bash
+projnew --generate-config
+# OR
+projnew -g
 ```
 
-## ⚙️ Template Definition (`projnew.templates.json`)
+This command attempts to generate the `projnew.templates.json` file in the **Global Configuration Path** (`$HOME/.projnew/`).
 
-To enable template usage, you must define them in a `projnew.templates.json` file located in the `projnew` executable directory.
+**Conflict Resolution:**
+If the configuration file already exists in the global path, `projnew` will not overwrite it. Instead, it will create a new file with a sequential suffix (e.g., `projnew.templates.json.1`) to prevent loss of existing data. The tool exits immediately after generation.
 
-### JSON Structure
+## Configuration File (`projnew.templates.json`)
 
-```json
-{
-  "templates": [
-    {
-      "id": "string",
-      "description": "string",
-      "sourceType": "git", // Currently only supports "git"
-      "sourceUrl": "string", // SSH or HTTPS URL
-      "fileReplacements": [ ... ],
-      "postCloneActions": [ ... ]
-    }
-  ]
-}
-```
+### Location Priority (Portability First)
 
-### File Content Replacement (`fileReplacements`)
+The tool searches for the configuration file in this order:
 
-This section automatically replaces specified placeholders in files within the cloned repository.
+1.  **Portable Path (Highest Priority):** Directly in the same directory as the `projnew` executable.
+2.  **Global Path (Fallback):** `$HOME/.projnew/projnew.templates.json`.
 
-| Field | Type | Description |
-| :--- | :--- | :--- |
-| `fileName` | string | Path to the file to modify (relative to the new project root). |
-| `placeholder` | string | The string to search for in the file. |
-| `replacementValue`| string | The value to replace it with. |
+If the file is not found, a sample file is **automatically generated** in the Global Path, and the session is marked as the "First Run."
 
-**Available Internal Placeholders:**
+### Template Schema Overview
 
-| Placeholder | Replaced Value | Example |
-| :--- | :--- | :--- |
-| `{PROJECT_NAME}` | The name specified by the user (`<PROJECT_NAME>`). | `my-new-app` |
-| `{CURRENT_YEAR}` | The current year (e.g., 2025). | `2025` |
+Each template object includes:
 
-### Post-Clone Actions (`postCloneActions`)
+| Field | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `id` | String | Yes | Unique ID used in the command line. |
+| `sourceUrl` | String | Yes | The full URL of the Git repository to clone. |
+| `fileReplacements` | Array | Optional | List of rules for replacing placeholder strings inside cloned files. |
+| `postCloneActions` | Array | Optional | List of shell commands to execute after cloning (e.g., `npm install`). |
 
-An array of shell commands to be executed in sequence after cloning and file replacement are complete. These are executed within the new project directory.
+### Post-Clone Actions (`postCloneActions`) and Security
 
-```json
-"postCloneActions": [
-    "npm install",
-    "npm run setup",
-    // Note: Use '&&' for multi-step commands if needed (e.g., 'cd sub-dir && npm install')
-]
-```
+The commands in `postCloneActions` are executed by delegating to the OS shell (`cmd.exe` on Windows, `/bin/bash` on Linux/macOS).
 
-## ⚠️ Security Warning (Important)
-
-### External Command Execution
-
-When a template contains `postCloneActions`, `projnew` executes arbitrary commands (like `npm install` or `git checkout`) using your operating system's shell (`cmd` or `/bin/bash`).
-
-**By using templates with post-clone actions, you acknowledge and agree to the following:**
-
-> **PROJNEW DOES NOT VALIDATE THE CONTENT OF THESE COMMANDS. EXECUTION IS AT YOUR OWN RISK.**
->
-> We strongly recommend only using templates from **trusted sources** that you have personally verified.
+**First Run Security Warning:**
+If the configuration file was **automatically generated** by the tool, the user will be prompted with a security warning before any `postCloneActions` are executed to ensure self-responsibility: "Commands are run at your own risk. Proceed? (Y/N)".
