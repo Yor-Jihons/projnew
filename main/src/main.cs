@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using ProjNew.Consoles;
+using System.CommandLine;
 
 namespace ProjNew
 {
@@ -13,6 +14,7 @@ namespace ProjNew
     {
         static void Main(string[] args)
         {
+            /*
             var name = ConsoleUtil.AskText("Name? :");
             Console.WriteLine("NAME = " + name);
 
@@ -22,6 +24,10 @@ namespace ProjNew
 
             var ret = ConsoleUtil.AskWithChoices("Your name is {name}, your favorite language is {lang}, right?", ["Yes", "No"] );
             Console.WriteLine($"You chooce {ret}.");
+            */
+
+            
+
         }
     }
 }
