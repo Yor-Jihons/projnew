@@ -14,5 +14,7 @@ namespace ProjNew.Defintions
         public string SourceType{ get; set; } = "git";
 
         public string SourceUrl{ get; set; } = "";
+
+        public string DefaultBranch{ get; set; } = "main";
     }
 }

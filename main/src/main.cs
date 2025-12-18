@@ -50,7 +50,7 @@ namespace ProjNew
                     ]
                 };
 
-                Defintions.TemplateConfig.Save( obj, "file1.json" );
+                TemplateConfig.Save( obj, "file1.json" );
             }
             catch( Exception e )
             {
