@@ -32,5 +32,10 @@ namespace ProjNew.Defintions
                 ReplacementValue = "{CURRENT_YEAR}"
             },
         ];
+
+        public List<string> PostCloneActions{ get; set; } = [
+            "npm install",
+            "echo 'Setup complete. Start coding!'"
+        ];
     }
 }
