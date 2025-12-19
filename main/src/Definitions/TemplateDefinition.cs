@@ -13,8 +13,24 @@ namespace ProjNew.Defintions
 
         public string SourceType{ get; set; } = "git";
 
-        public string SourceUrl{ get; set; } = "";
+        public string SourceUrl{ get; set; } = "https://example.com/projnew-sample-template.git";
 
         public string DefaultBranch{ get; set; } = "main";
+
+        public List<FileReplacement> FileReplacements{ get; set; } =
+        [
+            new FileReplacement()
+            {
+                FileName = "README.md",
+                Placeholder = "{PROJECT_NAME}",
+                ReplacementValue = "{PROJECT_NAME}"
+            },
+            new FileReplacement()
+            {
+                FileName = "LICENSE",
+                Placeholder = "{CURRENT_YEAR}",
+                ReplacementValue = "{CURRENT_YEAR}"
+            },
+        ];
     }
 }
