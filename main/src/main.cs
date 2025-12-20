@@ -39,13 +39,32 @@ namespace ProjNew
                         {
                             Id = "electron",
                             Description = "Electron + Reactのプロジェクト",
-                            SourceUrl = "http://example.com/sample.git"
+                            SourceUrl = "http://example.com/sample.git",
+                            FileReplacements = [
+                                new(){
+                                    FileName = "README.md",
+                                    Placeholder = "{PROJECT_NAME}",
+                                    ReplacementValue = "{PROJECT_NAME}"
+                                },
+                                new(){
+                                    FileName = "LICENSE",
+                                    Placeholder = "{CURRENT_YEAR}",
+                                    ReplacementValue = "{CURRENT_YEAR}"
+                                }
+                            ],
+                            PostCloneActions = [
+                                "npm install",
+                                "echo 'Setup complete. Start coding!'"
+                            ]
                         },
                         new()
                         {
                             Id = "csharp",
                             Description = "C#のプロジェクト",
-                            SourceUrl = "http://example.com/sample1.git"
+                            SourceUrl = "http://example.com/sample1.git",
+                            PostCloneActions = [
+                                "echo 'Setup complete. Start coding!'"
+                            ]
                         }
                     ]
                 };
