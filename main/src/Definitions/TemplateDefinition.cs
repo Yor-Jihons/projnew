@@ -17,25 +17,8 @@ namespace ProjNew.Defintions
 
         public string DefaultBranch{ get; set; } = "main";
 
-        public List<FileReplacement> FileReplacements{ get; set; } =
-        [
-            new FileReplacement()
-            {
-                FileName = "README.md",
-                Placeholder = "{PROJECT_NAME}",
-                ReplacementValue = "{PROJECT_NAME}"
-            },
-            new FileReplacement()
-            {
-                FileName = "LICENSE",
-                Placeholder = "{CURRENT_YEAR}",
-                ReplacementValue = "{CURRENT_YEAR}"
-            },
-        ];
+        public List<FileReplacement> FileReplacements{ get; set; } = [];
 
-        public List<string> PostCloneActions{ get; set; } = [
-            "npm install",
-            "echo 'Setup complete. Start coding!'"
-        ];
+        public List<string> PostCloneActions{ get; set; } = [];
     }
 }

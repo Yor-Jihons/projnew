@@ -1,0 +1,38 @@
+{
+  "Templates": [
+    {
+      "Id": "electron",
+      "Description": "Electron \u002B React\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8",
+      "SourceType": "git",
+      "SourceUrl": "http://example.com/sample.git",
+      "DefaultBranch": "main",
+      "FileReplacements": [
+        {
+          "FileName": "README.md",
+          "Placeholder": "{PROJECT_NAME}",
+          "ReplacementValue": "{PROJECT_NAME}"
+        },
+        {
+          "FileName": "LICENSE",
+          "Placeholder": "{CURRENT_YEAR}",
+          "ReplacementValue": "{CURRENT_YEAR}"
+        }
+      ],
+      "PostCloneActions": [
+        "npm install",
+        "echo \u0027Setup complete. Start coding!\u0027"
+      ]
+    },
+    {
+      "Id": "csharp",
+      "Description": "C#\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8",
+      "SourceType": "git",
+      "SourceUrl": "http://example.com/sample1.git",
+      "DefaultBranch": "main",
+      "FileReplacements": [],
+      "PostCloneActions": [
+        "echo \u0027Setup complete. Start coding!\u0027"
+      ]
+    }
+  ]
+}
