@@ -8,6 +8,8 @@ using System.Text;
 using ProjNew.Consoles;
 using System.CommandLine;
 using ProjNew.Defintions;
+using System.IO;
+using System.Reflection;
 
 namespace ProjNew
 {
@@ -29,6 +31,13 @@ namespace ProjNew
 
             try
             {
+                // TODO: Extract this.
+                var assm = Assembly.GetExecutingAssembly();
+                using (var stream = assm.GetManifestResourceStream("projnew.templates.json")) {
+                    var reader = new StreamReader(stream);
+                    Console.WriteLine(reader.ReadToEnd());
+                }
+
                 //var obj = Defintions.TemplateConfig.Load( "file1.json" );
 
                 var obj = new TemplateConfig()
