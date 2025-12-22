@@ -19,7 +19,7 @@ namespace ProjNew.CommandLines
             var instance = new CmdLine();
 
             // 1. オプションと引数の定義
-            var nameOption = new Option<string>("--name", "Project-Name");
+            var nameOption = new Option<string>("--name", "The project name.");
             nameOption.Aliases.Add( "-n" );
 
             var templateArgument = new Argument<string>("template")
@@ -28,16 +28,16 @@ namespace ProjNew.CommandLines
             };
 
             // 2. コマンド（サブコマンド）の定義
-            var newCommand = new Command("new", "プロジェクトを新規作成します")
+            var newCommand = new Command("new", "Creates a new project.")
             {
                 templateArgument,
                 nameOption
             };
 
-            var listCommand = new Command("list", "使用可能なテンプレートを列挙します");
+            var listCommand = new Command("list", "Lists available templates.");
 
             // 3. ルートコマンドの構築
-            var rootCommand = new RootCommand("MyTool - プロジェクト管理ツール")
+            var rootCommand = new RootCommand("projnew - The tool which creates the new-project from GitHub.")
             {
                 newCommand,
                 listCommand

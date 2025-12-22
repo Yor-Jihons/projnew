@@ -10,6 +10,7 @@ using System.CommandLine;
 using ProjNew.Defintions;
 using System.IO;
 using System.Reflection;
+using System.Globalization;
 
 namespace ProjNew
 {
@@ -28,6 +29,9 @@ namespace ProjNew
             var ret = ConsoleUtil.AskWithChoices("Your name is {name}, your favorite language is {lang}, right?", ["Yes", "No"] );
             Console.WriteLine($"You chooce {ret}.");
             */
+
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
             try
             {
