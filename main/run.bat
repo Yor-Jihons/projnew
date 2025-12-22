@@ -25,7 +25,7 @@ exit /b
 rem ------------------------- 関数定義 -------------------------
 
 :RunDebug
-    %CSDEBUGEXE%
+    %CSDEBUGEXE% --help
 exit /b 0
 
 :RunRelease

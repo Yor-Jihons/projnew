@@ -10,6 +10,7 @@ using System.CommandLine;
 using ProjNew.Defintions;
 using System.IO;
 using System.Reflection;
+using System.Globalization;
 
 namespace ProjNew
 {
@@ -29,8 +30,14 @@ namespace ProjNew
             Console.WriteLine($"You chooce {ret}.");
             */
 
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+
             try
             {
+                var cmdline = CmdLine.Create( args );
+                if( cmdline == null ) return;
+
                 // TODO: Extract this.
                 var assm = Assembly.GetExecutingAssembly();
                 using (var stream = assm.GetManifestResourceStream("projnew.templates.json")) {
