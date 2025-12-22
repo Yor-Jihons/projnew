@@ -67,6 +67,7 @@ namespace ProjNew.CommandLines
             if (args.Contains("--help") || args.Contains("-h") || args.Contains("--version"))
             {
                 parseResult.Invoke();
+                return null;
             }
 
             return instance;

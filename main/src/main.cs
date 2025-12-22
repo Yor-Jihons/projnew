@@ -32,6 +32,7 @@ namespace ProjNew
             try
             {
                 var cmdline = CmdLine.Create( args );
+                if( cmdline == null ) return;
 
                 // TODO: Extract this.
                 var assm = Assembly.GetExecutingAssembly();
