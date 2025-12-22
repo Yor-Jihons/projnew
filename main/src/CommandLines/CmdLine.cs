@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Threading;
+using System.CommandLine;
 
 namespace ProjNew.CommandLines
 {
@@ -8,34 +9,7 @@ namespace ProjNew.CommandLines
     {
         public static CmdLine Create( string[] args )
         {
-            ProcessTypes type = ProcessTypes.Replacement;
-            string definitionFilePath = "";
-            var sc = StringComparison.OrdinalIgnoreCase;
-            foreach( var arg in args )
-            {
-                if( arg.Equals( "--help", sc ) || arg.Equals( "-h", sc ) )
-                {
-                    Console.WriteLine( CmdLine.CreateHelpString() );
-                    return null;
-                }
-                else if( arg.Equals( "--version", sc ) || arg.Equals( "-v", sc ) )
-                {
-                    Console.WriteLine(
-                        System.Diagnostics.FileVersionInfo.GetVersionInfo(
-                            System.Reflection.Assembly.GetExecutingAssembly().Location
-                        ).FileVersion
-                    );
-                    return null;
-                }
-                else if( arg.StartsWith( "--definition=", sc ) || arg.StartsWith( "-d=", sc ) )
-                {
-                    definitionFilePath = SubStringEx( arg );
-                    type = ProcessTypes.Replacement;
-                }
-            }
-            return new CmdLine(){
-                ProcessTypes = type
-            };
+            return null;
         }
 
         public CommandLines.ProcessTypes ProcessTypes{ get; private set; }
