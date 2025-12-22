@@ -31,6 +31,8 @@ namespace ProjNew
 
             try
             {
+                var cmdline = CmdLine.Create( args );
+
                 // TODO: Extract this.
                 var assm = Assembly.GetExecutingAssembly();
                 using (var stream = assm.GetManifestResourceStream("projnew.templates.json")) {

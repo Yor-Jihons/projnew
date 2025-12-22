@@ -2,67 +2,74 @@ using System;
 using System.Text;
 using System.Threading;
 using System.CommandLine;
+using System.CommandLine.Invocation;
+using System.Linq;
 
 namespace ProjNew.CommandLines
 {
     public class CmdLine
     {
+        // 解析結果を保持するプロパティ
+        public string Command { get; private set; }
+        public string Template { get; private set; }
+        public string ProjectName { get; private set; }
+
         public static CmdLine Create( string[] args )
         {
-            return null;
-        }
+            var instance = new CmdLine();
 
-        public CommandLines.ProcessTypes ProcessTypes{ get; private set; }
+            // 1. オプションと引数の定義
+            var nameOption = new Option<string>("--name", "Project-Name");
+            nameOption.Aliases.Add( "-n" );
 
-        /// <summary>
-        /// Creates the help text.
-        /// </summary>
-        /// <returns>The help text.</returns>
-        private static string CreateHelpString()
-        {
-            string url = @"https://yorroom2.cloudfree.jp/help/en/dotnetversioner.html";
-            var builder = new StringBuilder();
-            builder.AppendLine( "[CMD]" );
-            builder.AppendLine( "$ DotnetVersioner --info" );
-            builder.AppendLine( "$ DotnetVersioner --list-sdks" );
-            builder.AppendLine( "$ DotnetVersioner -g [--definition=<FILEPATH>] [--TargetFramework=<VERSION>]" );
-            builder.AppendLine( "$ DotnetVersioner [--definition=<FILEPATH>] [--TargetFramework=<VERSION>]" );
-            builder.AppendLine( "$ DotnetVersioner --help" );
-            builder.AppendLine();
-            builder.AppendLine( "[ARGUMENTS]" );
-            builder.AppendLine( "  --info:" );
-            builder.AppendLine( "    Show the info as \"dotnet --info\"." );
-            builder.AppendLine( "    (shortened: -i)" );
-            builder.AppendLine( "  --list-sdks:" );
-            builder.AppendLine( "    Show the info as \"dotnet --list-sdks\"." );
-            builder.AppendLine( "    (shortened: -l)" );
-            builder.AppendLine( "  -g:" );
-            builder.AppendLine( "    Create the xml file as definition file." );
-            builder.AppendLine( "  --definition=<FILEPATH>:" );
-            builder.AppendLine( "    Pass the xml file as the definition file." );
-            builder.AppendLine( "    (shortened: -d=<FILEPATH>)" );
-            builder.AppendLine( "  --TargetFramework=<VERSION>:" );
-            builder.AppendLine( "    Pass the target framewrok." );
-            builder.AppendLine( "    (shortened: -t=<VERSION>)" );
-            builder.AppendLine( "  --help:" );
-            builder.AppendLine( "    Show this help." );
-            builder.AppendLine( "    (shortened: -h)" );
-            builder.AppendLine();
-            builder.AppendLine( $"See also {url}." );
-        return builder.ToString();
-        }
+            var templateArgument = new Argument<string>("template")
+            {
+                Description = "使用するテンプレート名（例: electron）"
+            };
 
-        /// <summary>
-        /// Create a string which deleted "...=" from "...=<***>".
-        /// </summary>
-        /// <param name="str">A string</param>
-        /// <returns>A string which deleted "...=" from "...=<***>".</returns>
-        private static string SubStringEx( string str )
-        {
-            int beginPos = str.IndexOf( "=" );
-            beginPos++;
-            string res = str[beginPos..];
-        return res;
+            // 2. コマンド（サブコマンド）の定義
+            var newCommand = new Command("new", "プロジェクトを新規作成します")
+            {
+                templateArgument,
+                nameOption
+            };
+
+            var listCommand = new Command("list", "使用可能なテンプレートを列挙します");
+
+            // 3. ルートコマンドの構築
+            var rootCommand = new RootCommand("MyTool - プロジェクト管理ツール")
+            {
+                newCommand,
+                listCommand
+            };
+
+            // 4. 解析
+            var parseResult = rootCommand.Parse(args);
+
+            // 5. 値の抽出（GetValueForOption / GetValueForArgument を型指定で呼ぶ）
+            // ※ 拡張メソッドではなく、ParseResultのメンバメソッドとして呼び出します
+            var commandResult = parseResult.CommandResult;
+
+            // 実行されたコマンド名を判定
+            if (commandResult.Command.Name == "new")
+            {
+                instance.Command = "new";
+                // 型を明示的に指定して値を取得します
+                instance.Template = parseResult.GetValue<string>( templateArgument );
+                instance.ProjectName = parseResult.GetValue<string>(nameOption);
+            }
+            else if (commandResult.Command.Name == "list")
+            {
+                instance.Command = "list";
+            }
+
+            // 4. ヘルプなどの自動表示
+            if (args.Contains("--help") || args.Contains("-h") || args.Contains("--version"))
+            {
+                parseResult.Invoke();
+            }
+
+            return instance;
         }
     }
 }
