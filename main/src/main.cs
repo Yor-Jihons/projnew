@@ -35,6 +35,7 @@ namespace ProjNew
 
             try
             {
+
                 var cmdline = CmdLine.Create( args );
                 if( cmdline == null ) return;
 
