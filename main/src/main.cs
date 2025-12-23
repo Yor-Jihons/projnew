@@ -35,6 +35,10 @@ namespace ProjNew
 
             try
             {
+                string dirpath = Path.Join( Environment.GetFolderPath( Environment.SpecialFolder.UserProfile ), ".projnew" );
+                string templateFilePath = Path.Join( dirpath, "projnew.tempaltes.json" );
+                Console.WriteLine( templateFilePath );
+
                 var cmdline = CmdLine.Create( args );
                 if( cmdline == null ) return;
 

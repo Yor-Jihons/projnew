@@ -19,12 +19,12 @@ namespace ProjNew.CommandLines
             var instance = new CmdLine();
 
             // 1. オプションと引数の定義
-            var nameOption = new Option<string>("--name", "The project name.");
+            var nameOption = new Option<string>("--name", "Project-name.");
             nameOption.Aliases.Add( "-n" );
 
             var templateArgument = new Argument<string>("template")
             {
-                Description = "使用するテンプレート名（例: electron）"
+                Description = "Template-Name（例: electron）"
             };
 
             // 2. コマンド（サブコマンド）の定義
