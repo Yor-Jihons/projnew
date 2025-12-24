@@ -33,6 +33,16 @@ namespace ProjNew
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
+            /*
+                [FLOW]
+                1. コマンドライン引数の解析
+                2. テンプレートファイル(定義ファイル)の場所を取得する
+                    2.1. 無ければHOMEディレクトリ直下の`.projnew`ディレクトリ内に生成する(リソースファイルを読み込んで生成)
+                3. テンプレートファイルのデータを読み込む
+                4. コマンドライン引数の第一引数で指定されたコマンドによってオブジェクトを生成する
+                5. `(4)`のオブジェクトが各処理をする
+            */
+
             try
             {
                 string dirpath = Path.Join( Environment.GetFolderPath( Environment.SpecialFolder.UserProfile ), ".projnew" );
