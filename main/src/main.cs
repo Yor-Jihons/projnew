@@ -42,15 +42,21 @@ namespace ProjNew
                 4. コマンドライン引数の第一引数で指定されたコマンドによってオブジェクトを生成する
                 5. `(4)`のオブジェクトが各処理をする
             */
+            try
+            {
+                var cmdline = CmdLine.Create( args );
+                if( cmdline == null ) return;
+            }
+            catch( Exception e )
+            {
+                Console.WriteLine( e );
+            }
 
             try
             {
                 string dirpath = Path.Join( Environment.GetFolderPath( Environment.SpecialFolder.UserProfile ), ".projnew" );
                 string templateFilePath = Path.Join( dirpath, "projnew.tempaltes.json" );
                 Console.WriteLine( templateFilePath );
-
-                var cmdline = CmdLine.Create( args );
-                if( cmdline == null ) return;
 
                 // TODO: Extract this.
                 var assm = Assembly.GetExecutingAssembly();
