@@ -40,10 +40,10 @@ namespace ProjNew
                 if( cmdline == null ) return;
 
                 // 2. 定義ファイルの場所を取得する
-                //     2.1. 無ければHOMEディレクトリ直下に`.projnew`ディレクトリを作成し、リソースを読み込んで定義ファイルを生成する
                 var defFile = new DefinitionPath();
                 if(!defFile.Exists())
                 {
+                    // 2.1. 無ければHOMEディレクトリ直下に`.projnew`ディレクトリを作成し、リソースを読み込んで定義ファイルを生成する
                     defFile.CreateParentDirOnHome();
                     TemplateConfig.CreateDefaultDefinitionFile(defFile.FilePath);
                 }
