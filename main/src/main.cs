@@ -49,6 +49,11 @@ namespace ProjNew
                 }
 
                 // 3. 定義ファイルのデータを読み込む
+                TemplateConfig templateConfig = null;
+                if( cmdline.Command.Equals("-g"))
+                {
+                    templateConfig = TemplateConfig.Load(defFile.FilePath);
+                }
 
                 // 4. コマンドライン引数の第一引数で指定されたコマンドによってオブジェクトを生成する
 
