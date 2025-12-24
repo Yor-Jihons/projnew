@@ -33,19 +33,20 @@ namespace ProjNew
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
-            /*
-                [FLOW]
-                1. コマンドライン引数の解析
-                2. テンプレートファイル(定義ファイル)の場所を取得する
-                    2.1. 無ければHOMEディレクトリ直下の`.projnew`ディレクトリ内に生成する(リソースファイルを読み込んで生成)
-                3. テンプレートファイルのデータを読み込む
-                4. コマンドライン引数の第一引数で指定されたコマンドによってオブジェクトを生成する
-                5. `(4)`のオブジェクトが各処理をする
-            */
             try
             {
+                // 1. コマンドライン引数の解析
                 var cmdline = CmdLine.Create( args );
                 if( cmdline == null ) return;
+
+                // 2. 定義ファイルの場所を取得する
+                //     2.1. 無ければHOMEディレクトリ直下に`.projnew`ディレクトリを作成し、リソースを読み込んで定義ファイルを生成する
+
+                // 3. 定義ファイルのデータを読み込む
+
+                // 4. コマンドライン引数の第一引数で指定されたコマンドによってオブジェクトを生成する
+
+                // 5. `(4)`のオブジェクトが各処理をする
             }
             catch( Exception e )
             {
