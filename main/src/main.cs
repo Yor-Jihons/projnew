@@ -60,13 +60,6 @@ namespace ProjNew
                 string templateFilePath = Path.Join( dirpath, "projnew.tempaltes.json" );
                 Console.WriteLine( templateFilePath );
 
-                // TODO: Extract this.
-                var assm = Assembly.GetExecutingAssembly();
-                using (var stream = assm.GetManifestResourceStream("projnew.templates.json")) {
-                    var reader = new StreamReader(stream);
-                    Console.WriteLine(reader.ReadToEnd());
-                }
-
                 //var obj = Defintions.TemplateConfig.Load( "file1.json" );
 
                 var obj = new TemplateConfig()
