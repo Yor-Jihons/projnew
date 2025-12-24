@@ -61,46 +61,6 @@ namespace ProjNew
                 Console.WriteLine( templateFilePath );
 
                 //var obj = Defintions.TemplateConfig.Load( "file1.json" );
-
-                var obj = new TemplateConfig()
-                {
-                    Templates =
-                    [
-                        new()
-                        {
-                            Id = "electron",
-                            Description = "Electron + Reactのプロジェクト",
-                            SourceUrl = "http://example.com/sample.git",
-                            FileReplacements = [
-                                new(){
-                                    FileName = "README.md",
-                                    Placeholder = "{PROJECT_NAME}",
-                                    ReplacementValue = "{PROJECT_NAME}"
-                                },
-                                new(){
-                                    FileName = "LICENSE",
-                                    Placeholder = "{CURRENT_YEAR}",
-                                    ReplacementValue = "{CURRENT_YEAR}"
-                                }
-                            ],
-                            PostCloneActions = [
-                                "npm install",
-                                "echo 'Setup complete. Start coding!'"
-                            ]
-                        },
-                        new()
-                        {
-                            Id = "csharp",
-                            Description = "C#のプロジェクト",
-                            SourceUrl = "http://example.com/sample1.git",
-                            PostCloneActions = [
-                                "echo 'Setup complete. Start coding!'"
-                            ]
-                        }
-                    ]
-                };
-
-                TemplateConfig.Save( obj, "file1.json" );
             }
             catch( Exception e )
             {
