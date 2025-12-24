@@ -33,79 +33,36 @@ namespace ProjNew
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
-            /*
-                [FLOW]
-                1. コマンドライン引数の解析
-                2. テンプレートファイル(定義ファイル)の場所を取得する
-                    2.1. 無ければHOMEディレクトリ直下の`.projnew`ディレクトリ内に生成する(リソースファイルを読み込んで生成)
-                3. テンプレートファイルのデータを読み込む
-                4. コマンドライン引数の第一引数で指定されたコマンドによってオブジェクトを生成する
-                5. `(4)`のオブジェクトが各処理をする
-            */
-
             try
             {
-                string dirpath = Path.Join( Environment.GetFolderPath( Environment.SpecialFolder.UserProfile ), ".projnew" );
-                string templateFilePath = Path.Join( dirpath, "projnew.tempaltes.json" );
-                Console.WriteLine( templateFilePath );
-
+                // 1. コマンドライン引数の解析
                 var cmdline = CmdLine.Create( args );
                 if( cmdline == null ) return;
 
-                // TODO: Extract this.
-                var assm = Assembly.GetExecutingAssembly();
-                using (var stream = assm.GetManifestResourceStream("projnew.templates.json")) {
-                    var reader = new StreamReader(stream);
-                    Console.WriteLine(reader.ReadToEnd());
+                // 2. 定義ファイルの場所を取得する
+                var defFile = new DefinitionPath();
+                if(!defFile.Exists())
+                {
+                    // 2.1. 無ければHOMEディレクトリ直下に`.projnew`ディレクトリを作成し、リソースを読み込んで定義ファイルを生成する
+                    defFile.CreateParentDirOnHome();
+                    TemplateConfig.CreateDefaultDefinitionFile(defFile.FilePath);
                 }
 
-                //var obj = Defintions.TemplateConfig.Load( "file1.json" );
-
-                var obj = new TemplateConfig()
+                // 3. 定義ファイルのデータを読み込む
+                TemplateConfig templateConfig = null;
+                if( cmdline.Command.Equals("-g"))
                 {
-                    Templates =
-                    [
-                        new()
-                        {
-                            Id = "electron",
-                            Description = "Electron + Reactのプロジェクト",
-                            SourceUrl = "http://example.com/sample.git",
-                            FileReplacements = [
-                                new(){
-                                    FileName = "README.md",
-                                    Placeholder = "{PROJECT_NAME}",
-                                    ReplacementValue = "{PROJECT_NAME}"
-                                },
-                                new(){
-                                    FileName = "LICENSE",
-                                    Placeholder = "{CURRENT_YEAR}",
-                                    ReplacementValue = "{CURRENT_YEAR}"
-                                }
-                            ],
-                            PostCloneActions = [
-                                "npm install",
-                                "echo 'Setup complete. Start coding!'"
-                            ]
-                        },
-                        new()
-                        {
-                            Id = "csharp",
-                            Description = "C#のプロジェクト",
-                            SourceUrl = "http://example.com/sample1.git",
-                            PostCloneActions = [
-                                "echo 'Setup complete. Start coding!'"
-                            ]
-                        }
-                    ]
-                };
+                    templateConfig = TemplateConfig.Load(defFile.FilePath);
+                }
 
-                TemplateConfig.Save( obj, "file1.json" );
+                // 4. コマンドライン引数の第一引数で指定されたコマンドによってオブジェクトを生成する
+
+                // 5. `(4)`のオブジェクトが各処理をする
             }
             catch( Exception e )
             {
                 Console.WriteLine( e );
             }
-
         }
     }
 }
