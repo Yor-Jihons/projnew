@@ -41,7 +41,12 @@ namespace ProjNew
 
                 // 2. 定義ファイルの場所を取得する
                 //     2.1. 無ければHOMEディレクトリ直下に`.projnew`ディレクトリを作成し、リソースを読み込んで定義ファイルを生成する
-                TemplateConfig.CreateDefaultDefinitionFile( "projnew.templates.json" );
+                var defFile = new DefinitionPath();
+                if(!defFile.Exists())
+                {
+                    defFile.CreateParentDirOnHome();
+                    TemplateConfig.CreateDefaultDefinitionFile(defFile.FilePath);
+                }
 
                 // 3. 定義ファイルのデータを読み込む
 
@@ -53,20 +58,6 @@ namespace ProjNew
             {
                 Console.WriteLine( e );
             }
-
-            try
-            {
-                string dirpath = Path.Join( Environment.GetFolderPath( Environment.SpecialFolder.UserProfile ), ".projnew" );
-                string templateFilePath = Path.Join( dirpath, "projnew.tempaltes.json" );
-                Console.WriteLine( templateFilePath );
-
-                //var obj = Defintions.TemplateConfig.Load( "file1.json" );
-            }
-            catch( Exception e )
-            {
-                Console.WriteLine( e );
-            }
-
         }
     }
 }
