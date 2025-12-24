@@ -41,6 +41,7 @@ namespace ProjNew
 
                 // 2. 定義ファイルの場所を取得する
                 //     2.1. 無ければHOMEディレクトリ直下に`.projnew`ディレクトリを作成し、リソースを読み込んで定義ファイルを生成する
+                TemplateConfig.CreateDefaultDefinitionFile( "projnew.templates.json" );
 
                 // 3. 定義ファイルのデータを読み込む
 
