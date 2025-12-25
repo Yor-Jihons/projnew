@@ -11,6 +11,7 @@ using ProjNew.Defintions;
 using System.IO;
 using System.Reflection;
 using System.Globalization;
+using ProjNew.Processors;
 
 namespace ProjNew
 {
@@ -56,8 +57,10 @@ namespace ProjNew
                 }
 
                 // 4. コマンドライン引数の第一引数で指定されたコマンドによってオブジェクトを生成する
+                var processor = ProcessorFactory.Create( cmdline.Command );
 
                 // 5. `(4)`のオブジェクトが各処理をする
+                processor.Run( templateConfig );
             }
             catch( Exception e )
             {

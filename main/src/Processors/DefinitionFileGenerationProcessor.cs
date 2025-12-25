@@ -8,8 +8,11 @@ using ProjNew.Defintions;
 
 namespace ProjNew.Processors
 {
-    public interface IProcessor
+    public class DefinitionFileGenerationProcessor : IProcessor
     {
-        void Run( TemplateConfig templateConfig );
+        public void Run( TemplateConfig templateConfig )
+        {
+            
+        }
     }
 }
