@@ -12,7 +12,13 @@ namespace ProjNew.Processors
     {
         public void Run( TemplateConfig templateConfig )
         {
-            
+            Console.WriteLine( templateConfig == null ? "templateConfig is NULL" : "OK" );
+            Console.WriteLine( templateConfig.Templates == null ? "templateConfig.Templates is null" : "OK" );
+            Console.WriteLine( templateConfig.Templates.Count() );
+            foreach(var template in templateConfig.Templates)
+            {
+                Console.WriteLine( $"{template.Id}: {template.Description}" ); // TODO: spectre.consoleの方を使う?
+            }
         }
     }
 }
