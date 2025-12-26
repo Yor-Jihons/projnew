@@ -1,7 +1,8 @@
 {
     "templates": [
         {
-            "id": "name-of-target", 
+            "id": "name-of-target",
+            "description": "サンプル",
             "sourceUrl": "https://github.com/USERNAME/PROJECTNAME.git",
             "sourceType": "git", 
             "defaultBranch": "main", 

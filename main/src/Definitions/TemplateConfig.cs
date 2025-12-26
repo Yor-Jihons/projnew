@@ -32,6 +32,7 @@ namespace ProjNew.Defintions
             File.WriteAllText( filePath, newJsonString );
         }
 
+        [System.Text.Json.Serialization.JsonPropertyName("templates")]
         public List<TemplateDefinition> Templates{ get; set; }
     }
 }

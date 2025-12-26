@@ -51,7 +51,7 @@ namespace ProjNew
 
                 // 3. 定義ファイルのデータを読み込む
                 TemplateConfig templateConfig = null;
-                if(cmdline.Command.Equals("-g"))
+                if(cmdline.Command != ProcessTypes.DefinitionFileGeneration)
                 {
                     templateConfig = TemplateConfig.Load(defFile.FilePath);
                 }
