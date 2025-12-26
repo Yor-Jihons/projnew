@@ -10,11 +10,11 @@ namespace ProjNew.Processors
 {
     public static class ProcessorFactory
     {
-        public static IProcessor Create( CommandLines.ProcessTypes command )
+        public static IProcessor Create( CommandLines.ProcessTypes command, DefinitionPath definitionPath )
         {
             if( command == CommandLines.ProcessTypes.List ) return new ListProcessor();
             if( command == CommandLines.ProcessTypes.New ) return new CloneProcessor();
-            if( command == CommandLines.ProcessTypes.DefinitionFileGeneration ) return new DefinitionFileGenerationProcessor();
+            if( command == CommandLines.ProcessTypes.DefinitionFileGeneration ) return new DefinitionFileGenerationProcessor( definitionPath );
         return null;
         }
     }
