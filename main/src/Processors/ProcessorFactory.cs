@@ -10,7 +10,7 @@ namespace ProjNew.Processors
 {
     public static class ProcessorFactory
     {
-        public static IProcessor Create( string command )
+        public static IProcessor Create( CommandLines.ProcessTypes command )
         {
             if( command.Equals( "list" ) ) return new ListProcessor();
             if( command.Equals( "new" ) ) return new CloneProcessor();

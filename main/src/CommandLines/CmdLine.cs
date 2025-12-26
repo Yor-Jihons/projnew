@@ -10,7 +10,7 @@ namespace ProjNew.CommandLines
     public class CmdLine
     {
         // 解析結果を保持するプロパティ
-        public string Command { get; private set; }
+        public ProcessTypes Command { get; private set; }
         public string Template { get; private set; }
         public string ProjectName { get; private set; }
 
@@ -54,20 +54,20 @@ namespace ProjNew.CommandLines
             var commandResult = parseResult.CommandResult;
 
             // 実行されたコマンド名を判定
-            if (commandResult.Command.Name == "new")
+            if(commandResult.Command.Name == "new")
             {
-                instance.Command = "new";
+                instance.Command = ProcessTypes.New;
                 // 型を明示的に指定して値を取得します
                 instance.Template = parseResult.GetValue<string>( templateArgument );
                 instance.ProjectName = parseResult.GetValue<string>(nameOption);
             }
-            else if (commandResult.Command.Name == "list")
+            else if(commandResult.Command.Name == "list")
             {
-                instance.Command = "list";
+                instance.Command = ProcessTypes.List;
             }
             else if(commandResult.Command.Name == "-g")
             {
-                instance.Command = "-g";
+                instance.Command = ProcessTypes.DefinitionFileGeneration;
             }
 
             // 4. ヘルプなどの自動表示
