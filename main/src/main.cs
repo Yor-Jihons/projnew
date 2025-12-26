@@ -40,6 +40,14 @@ namespace ProjNew
                 var cmdline = CmdLine.Create( args );
                 if( cmdline == null ) return;
 
+                Console.WriteLine( cmdline.Command );
+
+                if( string.Equals( cmdline.Command, string.Empty ))
+                {
+                    Console.WriteLine( "FAILED!" );
+                    return;
+                }
+                
                 // 2. 定義ファイルの場所を取得する
                 var defFile = new DefinitionPath();
                 if(!defFile.Exists())

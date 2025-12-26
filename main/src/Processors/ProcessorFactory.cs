@@ -12,9 +12,9 @@ namespace ProjNew.Processors
     {
         public static IProcessor Create( CommandLines.ProcessTypes command )
         {
-            if( command.Equals( "list" ) ) return new ListProcessor();
-            if( command.Equals( "new" ) ) return new CloneProcessor();
-            if( command.Equals( "-g" ) ) return new DefinitionFileGenerationProcessor();
+            if( command == CommandLines.ProcessTypes.List ) return new ListProcessor();
+            if( command == CommandLines.ProcessTypes.New ) return new CloneProcessor();
+            if( command == CommandLines.ProcessTypes.DefinitionFileGeneration ) return new DefinitionFileGenerationProcessor();
         return null;
         }
     }
