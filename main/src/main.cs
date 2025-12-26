@@ -57,10 +57,10 @@ namespace ProjNew
                 }
 
                 // 4. コマンドライン引数の第一引数で指定されたコマンドによってオブジェクトを生成する
-                var processor = ProcessorFactory.Create( cmdline.Command );
+                var processor = ProcessorFactory.Create( cmdline.Command, defFile );
 
                 // 5. `(4)`のオブジェクトが各処理をする
-                processor.Run( templateConfig );
+                processor.Run( cmdline, templateConfig );
             }
             catch( Exception e )
             {
