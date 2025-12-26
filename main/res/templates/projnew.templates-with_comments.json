@@ -4,6 +4,8 @@
         {
             // [REQUIRED] A unique ID to use in the command (e.g., 'projnew [id] ...').
             "id": "name-of-target",
+            // [REQUIRED] A text for the command "list".
+            "description": "description for the list",
             // [REQUIRED] The URL to the Git repository.
             "sourceUrl": "https://github.com/USERNAME/PROJECTNAME.git",
             // [OPTIONAL] Type of source. Currently, only 'git' is supported.
