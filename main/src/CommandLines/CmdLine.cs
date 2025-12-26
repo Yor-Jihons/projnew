@@ -54,24 +54,30 @@ namespace ProjNew.CommandLines
             var commandResult = parseResult.CommandResult;
 
             // 実行されたコマンド名を判定
-            if(commandResult.Command.Name == "new")
+            if (commandResult.Command.Name == "new")
             {
                 instance.Command = ProcessTypes.New;
                 // 型を明示的に指定して値を取得します
                 instance.Template = parseResult.GetValue<string>( templateArgument );
                 instance.ProjectName = parseResult.GetValue<string>(nameOption);
             }
-            else if(commandResult.Command.Name == "list")
+            else if (commandResult.Command.Name == "list")
             {
                 instance.Command = ProcessTypes.List;
             }
-            else if(commandResult.Command.Name == "-g")
+            else if (commandResult.Command.Name == "-g")
             {
                 instance.Command = ProcessTypes.DefinitionFileGeneration;
             }
 
             // 4. ヘルプなどの自動表示
             if (args.Contains("--help") || args.Contains("-h") || args.Contains("--version"))
+            {
+                parseResult.Invoke();
+                return null;
+            }
+
+            if (instance.Command == ProcessTypes.Unknown)
             {
                 parseResult.Invoke();
                 return null;
