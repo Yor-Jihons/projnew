@@ -10,7 +10,7 @@ namespace ProjNew.Processors
 {
     public class CloneProcessor : IProcessor
     {
-        public void Run( TemplateConfig templateConfig )
+        public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
         {
             
         }

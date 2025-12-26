@@ -60,7 +60,7 @@ namespace ProjNew
                 var processor = ProcessorFactory.Create( cmdline.Command, defFile );
 
                 // 5. `(4)`のオブジェクトが各処理をする
-                processor.Run( templateConfig );
+                processor.Run( cmdline, templateConfig );
             }
             catch( Exception e )
             {
