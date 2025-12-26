@@ -12,7 +12,12 @@ namespace ProjNew.Processors
     {
         public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
         {
-            
+            // 1. cmdline.Template が templateConfig.Templates 内にあるかどうか検索する
+            // 2. 無ければ例外を投げる
+            // 3. (1)のTemplateDefinitionを取り出す
+            // 4. gitを外部プロセス起動で呼び出す
+            // 5. 初回起動時はPostCloneActionsの直前に「自己責任で使いましょう」とメッセージを出す
+            // 6. Yesを選択したらPostCloneActionsの処理を外部プロセス起動で呼び出す
         }
     }
 }
