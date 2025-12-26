@@ -5,6 +5,7 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Linq;
 using ProjNew.Defintions;
+using System.Data.Common;
 
 namespace ProjNew.Processors
 {
@@ -12,7 +13,15 @@ namespace ProjNew.Processors
     {
         public void Run( TemplateConfig templateConfig )
         {
+            if(templateConfig.Templates.Count == 0)
+            {
+                throw new Exception( "Not found the templates." );
+            }
 
+            foreach(var template in templateConfig.Templates)
+            {
+                Console.WriteLine( $"{template.Id}: {template.Description}" );
+            }
         }
     }
 }

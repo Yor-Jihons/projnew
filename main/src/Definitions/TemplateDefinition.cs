@@ -8,10 +8,10 @@ namespace ProjNew.Defintions
     public class TemplateDefinition
     {
         [System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string Id{ get; set; } = "";
+        public string Id{ get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("description")]
-        public string Description{ get; set; } = "";
+        public string Description{ get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("sourceType")]
         public string SourceType{ get; set; } = "git";
