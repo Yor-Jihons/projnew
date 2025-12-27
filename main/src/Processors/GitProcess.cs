@@ -40,6 +40,7 @@ namespace ProjNew.Processors
             process1.BeginErrorReadLine();
             process1.BeginOutputReadLine();
             process1.WaitForExit();
+            process1.Kill();
         }
 
         private readonly Process process1;

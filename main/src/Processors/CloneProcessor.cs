@@ -36,6 +36,7 @@ namespace ProjNew.Processors
 
             var gitProcess = new GitProcess( argument.ToString(), template.DefaultBranch );
             gitProcess.Start();
+            // TODO: エラーが発生した場合強制終了する?
 
             if(template.PostCloneActions.Count == 0) return;
 
