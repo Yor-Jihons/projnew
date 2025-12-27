@@ -72,6 +72,7 @@ namespace ProjNew.Processors
                 }
             }
 
+            // TODO: Windows向けなのかMacOS/Linux向けなのかで分岐させる(v2.0.0以降)
             var fileNameBuilder = new StringBuilder();
             fileNameBuilder.Append( "cmd.exe" );
             var commandBuilder = new StringBuilder();

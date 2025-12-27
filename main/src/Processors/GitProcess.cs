@@ -34,13 +34,16 @@ namespace ProjNew.Processors
             };
         }
 
-        public void Start()
+        public bool Start()
         {
             process1.Start();
             process1.BeginErrorReadLine();
             process1.BeginOutputReadLine();
             process1.WaitForExit();
-            process1.Kill();
+
+            bool isSuccess = process1.ExitCode == 0;
+            process1.Dispose();
+            return isSuccess;
         }
 
         private readonly Process process1;
