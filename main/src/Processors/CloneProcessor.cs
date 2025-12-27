@@ -39,33 +39,36 @@ namespace ProjNew.Processors
 
             if(template.PostCloneActions.Count == 0) return;
 
-            var messageBuilder = new StringBuilder();
-            messageBuilder.AppendLine( "--------------------------------------------------------------------------------------------------" );
-            messageBuilder.AppendLine( "[ SECURITY WARNING: EXTERNAL COMMAND EXECUTION ]" );
-            messageBuilder.AppendLine( "" );
-            messageBuilder.AppendLine( $"The template '{template.Id}' you selected contains one or more setup commands in 'postCloneActions'." );
-            messageBuilder.AppendLine( "These commands will be executed automatically on your system using the operating system shell (cmd/bash)." );
-            messageBuilder.AppendLine( "" );
-            messageBuilder.AppendLine( "Commands to be executed:" );
-            int count = 0;
-            foreach( var item in template.PostCloneActions)
+            if(isFirstStart)
             {
-                count++;
-                messageBuilder.AppendLine( $"{count}: {item}" );
-            }
-            messageBuilder.AppendLine( "" );
-            messageBuilder.AppendLine( "!!! PROJNEW DOES NOT VALIDATE THE CONTENT OF THESE COMMANDS. EXECUTION IS AT YOUR OWN RISK. !!!" );
-            messageBuilder.AppendLine( "" );
-            messageBuilder.AppendLine( "By proceeding, you agree that projnew is not responsible for any malicious or unintended behavior" );
-            messageBuilder.AppendLine( "caused by these external actions." );
-            messageBuilder.AppendLine( "" );
-            messageBuilder.AppendLine( "Do you want to proceed with executing these post-clone actions? (Y/n)" );
-            messageBuilder.AppendLine( "--------------------------------------------------------------------------------------------------" );
-            Console.Write( messageBuilder.ToString() );
-            var input = Console.ReadLine();
-            if(!string.Equals(input,"Y", StringComparison.OrdinalIgnoreCase))
-            {
-                return;
+                var messageBuilder = new StringBuilder();
+                messageBuilder.AppendLine( "--------------------------------------------------------------------------------------------------" );
+                messageBuilder.AppendLine( "[ SECURITY WARNING: EXTERNAL COMMAND EXECUTION ]" );
+                messageBuilder.AppendLine( "" );
+                messageBuilder.AppendLine( $"The template '{template.Id}' you selected contains one or more setup commands in 'postCloneActions'." );
+                messageBuilder.AppendLine( "These commands will be executed automatically on your system using the operating system shell (cmd/bash)." );
+                messageBuilder.AppendLine( "" );
+                messageBuilder.AppendLine( "Commands to be executed:" );
+                int count = 0;
+                foreach( var item in template.PostCloneActions)
+                {
+                    count++;
+                    messageBuilder.AppendLine( $"{count}: {item}" );
+                }
+                messageBuilder.AppendLine( "" );
+                messageBuilder.AppendLine( "!!! PROJNEW DOES NOT VALIDATE THE CONTENT OF THESE COMMANDS. EXECUTION IS AT YOUR OWN RISK. !!!" );
+                messageBuilder.AppendLine( "" );
+                messageBuilder.AppendLine( "By proceeding, you agree that projnew is not responsible for any malicious or unintended behavior" );
+                messageBuilder.AppendLine( "caused by these external actions." );
+                messageBuilder.AppendLine( "" );
+                messageBuilder.AppendLine( "Do you want to proceed with executing these post-clone actions? (Y/n)" );
+                messageBuilder.AppendLine( "--------------------------------------------------------------------------------------------------" );
+                Console.Write( messageBuilder.ToString() );
+                var input = Console.ReadLine();
+                if(!string.Equals(input,"Y", StringComparison.OrdinalIgnoreCase))
+                {
+                    return;
+                }
             }
 
             Console.WriteLine( "OK" );
