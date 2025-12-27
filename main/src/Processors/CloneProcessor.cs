@@ -33,7 +33,7 @@ namespace ProjNew.Processors
             StringBuilder argument = new( "clone " );
             argument.Append( template.SourceUrl );
 
-            var gitProcess = new GitProcess( argument.ToString() );
+            var gitProcess = new GitProcess( argument.ToString(), template.DefaultBranch );
             gitProcess.Start();
 
             //var st = template.

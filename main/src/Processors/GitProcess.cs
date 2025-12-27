@@ -12,7 +12,7 @@ namespace ProjNew.Processors
 {
     public class GitProcess
     {
-        public GitProcess( string arguments )
+        public GitProcess( string arguments, string defualtBranch )
         {
             process1 = new Process
             {
