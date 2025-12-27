@@ -20,7 +20,7 @@ namespace ProjNew.Processors
             /// 3. (1)のTemplateDefinitionを取り出す
             /// 4. gitを外部プロセス起動で呼び出す
             /// 5. 初回起動時はPostCloneActionsの直前に「自己責任で使いましょう」とメッセージを出す
-            // 6. Yesを選択したらPostCloneActionsの処理を外部プロセス起動で呼び出す
+            /// 6. Yesを選択したらPostCloneActionsの処理を外部プロセス起動で呼び出す
 
             var templates = templateConfig.Templates.Where( obj => string.Equals( obj.Id, cmdLine.Template ) ).ToList();
             if (templates.Count == 0)
@@ -35,8 +35,11 @@ namespace ProjNew.Processors
             argument.Append( template.SourceUrl );
 
             var gitProcess = new GitProcess( argument.ToString(), template.DefaultBranch );
-            gitProcess.Start();
-            // TODO: エラーが発生した場合強制終了する?
+            if(!gitProcess.Start())
+            {
+                Console.WriteLine( "Quit the process because the git-clone is failed." );
+                return;
+            }
 
             if(template.PostCloneActions.Count == 0) return;
 
@@ -83,7 +86,11 @@ namespace ProjNew.Processors
                 var argumentCommand = new StringBuilder( commandBuilder.ToString() );
                 argumentCommand.Append( command );
                 var process = new ExternalCommandProcess( fileNameBuilder.ToString(), argumentCommand.ToString() );
-                process.Start();
+                if (!process.Start())
+                {
+                    Console.WriteLine( $"Quit the process because the {command} is failed." );
+                    return;
+                }
             }
         }
     }
