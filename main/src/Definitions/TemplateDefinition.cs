@@ -23,9 +23,6 @@ namespace ProjNew.Defintions
         [System.Text.Json.Serialization.JsonPropertyName("defaultBranch")]
         public string DefaultBranch{ get; set; } = "main";
 
-        [System.Text.Json.Serialization.JsonPropertyName("fileReplacements")]
-        public List<FileReplacement> FileReplacements{ get; set; } = [];
-
         [System.Text.Json.Serialization.JsonPropertyName("postCloneActions")]
         public List<string> PostCloneActions{ get; set; } = [];
     }
