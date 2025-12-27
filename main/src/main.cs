@@ -43,7 +43,7 @@ namespace ProjNew
                 // 2. 定義ファイルの場所を取得する
                 var defFile = new DefinitionPath();
                 bool isFirstStart = !defFile.Exists();
-                if(!isFirstStart)
+                if(isFirstStart)
                 {
                     // 2.1. 無ければHOMEディレクトリ直下に`.projnew`ディレクトリを作成し、リソースを読み込んで定義ファイルを生成する
                     defFile.CreateParentDirOnHome();

@@ -7,6 +7,7 @@ using System.Linq;
 using ProjNew.Defintions;
 using System.Diagnostics;
 using Microsoft.VisualBasic;
+using System.Collections.Generic;
 
 namespace ProjNew.Processors
 {
@@ -18,7 +19,7 @@ namespace ProjNew.Processors
             /// 2. 無ければ例外を投げる
             /// 3. (1)のTemplateDefinitionを取り出す
             /// 4. gitを外部プロセス起動で呼び出す
-            // 5. 初回起動時はPostCloneActionsの直前に「自己責任で使いましょう」とメッセージを出す
+            /// 5. 初回起動時はPostCloneActionsの直前に「自己責任で使いましょう」とメッセージを出す
             // 6. Yesを選択したらPostCloneActionsの処理を外部プロセス起動で呼び出す
 
             var templates = templateConfig.Templates.Where( obj => string.Equals( obj.Id, cmdLine.Template ) ).ToList();
@@ -36,14 +37,38 @@ namespace ProjNew.Processors
             var gitProcess = new GitProcess( argument.ToString(), template.DefaultBranch );
             gitProcess.Start();
 
-            if(isFirstStart)
+            if(template.PostCloneActions.Count == 0) return;
+
+            var messageBuilder = new StringBuilder();
+            messageBuilder.AppendLine( "--------------------------------------------------------------------------------------------------" );
+            messageBuilder.AppendLine( "[ SECURITY WARNING: EXTERNAL COMMAND EXECUTION ]" );
+            messageBuilder.AppendLine( "" );
+            messageBuilder.AppendLine( $"The template '{template.Id}' you selected contains one or more setup commands in 'postCloneActions'." );
+            messageBuilder.AppendLine( "These commands will be executed automatically on your system using the operating system shell (cmd/bash)." );
+            messageBuilder.AppendLine( "" );
+            messageBuilder.AppendLine( "Commands to be executed:" );
+            int count = 0;
+            foreach( var item in template.PostCloneActions)
             {
-                // TODO: ここで「自己責任で使いましょう」系メッセージの表示して、"Yes"を選択したら次へ進む
+                count++;
+                messageBuilder.AppendLine( $"{count}: {item}" );
+            }
+            messageBuilder.AppendLine( "" );
+            messageBuilder.AppendLine( "!!! PROJNEW DOES NOT VALIDATE THE CONTENT OF THESE COMMANDS. EXECUTION IS AT YOUR OWN RISK. !!!" );
+            messageBuilder.AppendLine( "" );
+            messageBuilder.AppendLine( "By proceeding, you agree that projnew is not responsible for any malicious or unintended behavior" );
+            messageBuilder.AppendLine( "caused by these external actions." );
+            messageBuilder.AppendLine( "" );
+            messageBuilder.AppendLine( "Do you want to proceed with executing these post-clone actions? (Y/n)" );
+            messageBuilder.AppendLine( "--------------------------------------------------------------------------------------------------" );
+            Console.Write( messageBuilder.ToString() );
+            var input = Console.ReadLine();
+            if(!string.Equals(input,"Y", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
             }
 
-
-
-
+            Console.WriteLine( "OK" );
 
             //var st = template.
         }
