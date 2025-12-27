@@ -11,7 +11,7 @@ namespace ProjNew.Processors
 {
     public class ListProcessor : IProcessor
     {
-        public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
+        public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig, bool isFirstStart )
         {
             if(templateConfig.Templates.Count == 0)
             {

@@ -12,18 +12,6 @@
             "sourceType": "git",
             // [OPTIONAL] The branch to clone from. Defaults to 'main'.
             "defaultBranch": "main",
-            // [OPTIONAL] Defines text replacements in files after cloning.
-            "fileReplacements": [
-                {
-                    "fileName": "README.md",
-                    // [GUIDANCE] This is the exact string to search for in the file.
-                    "placeholder": "{OLD_NAME_IN_TEMPLATE}",
-                    // [GUIDANCE] The value to replace it with. Use internal placeholders like:
-                    //   {PROJECT_NAME}: Replaces with the new project directory name.
-                    //   {CURRENT_YEAR}: Replaces with the current year.
-                    "replacementValue": "{PROJECT_NAME}" 
-                }
-            ],
             // [OPTIONAL] List of shell commands to execute after cloning/git init.
             "postCloneActions": [
                 "npm install",
