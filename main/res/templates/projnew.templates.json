@@ -5,14 +5,7 @@
             "description": "サンプル",
             "sourceUrl": "https://github.com/USERNAME/PROJECTNAME.git",
             "sourceType": "git", 
-            "defaultBranch": "main", 
-            "fileReplacements": [
-                {
-                    "fileName": "README.md",
-                    "placeholder": "{OLD_NAME_IN_TEMPLATE}", 
-                    "replacementValue": "{PROJECT_NAME}" 
-                }
-            ],
+            "defaultBranch": "main",
             "postCloneActions": [
                 "npm install",
                 "dotnet restore"

@@ -71,7 +71,18 @@ namespace ProjNew.Processors
                 }
             }
 
-            //var st = template.
+            var fileNameBuilder = new StringBuilder();
+            fileNameBuilder.Append( "cmd.exe" );
+            var commandBuilder = new StringBuilder();
+            commandBuilder.Append( "/c " );
+
+            foreach(var command in template.PostCloneActions)
+            {
+                var argumentCommand = new StringBuilder( commandBuilder.ToString() );
+                argumentCommand.Append( command );
+                var process = new ExternalCommandProcess( fileNameBuilder.ToString(), argumentCommand.ToString() );
+                process.Start();
+            }
         }
     }
 }
