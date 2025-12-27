@@ -71,8 +71,6 @@ namespace ProjNew.Processors
                 }
             }
 
-            Console.WriteLine( "OK" );
-
             //var st = template.
         }
     }
