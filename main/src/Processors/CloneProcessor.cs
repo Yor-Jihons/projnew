@@ -36,6 +36,15 @@ namespace ProjNew.Processors
             var gitProcess = new GitProcess( argument.ToString(), template.DefaultBranch );
             gitProcess.Start();
 
+            if(isFirstStart)
+            {
+                // TODO: ここで「自己責任で使いましょう」系メッセージの表示して、"Yes"を選択したら次へ進む
+            }
+
+
+
+
+
             //var st = template.
         }
     }
