@@ -12,7 +12,7 @@ namespace ProjNew.Processors
 {
     public class CloneProcessor : IProcessor
     {
-        public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
+        public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig, bool isFirstStart )
         {
             /// 1. cmdline.Template が templateConfig.Templates 内にあるかどうか検索する
             /// 2. 無ければ例外を投げる
