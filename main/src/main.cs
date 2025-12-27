@@ -1,11 +1,9 @@
 using System;
 using ProjNew.CommandLines;
 using System.Linq;
-using Spectre.Console;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-using ProjNew.Consoles;
 using System.CommandLine;
 using ProjNew.Defintions;
 using System.IO;
