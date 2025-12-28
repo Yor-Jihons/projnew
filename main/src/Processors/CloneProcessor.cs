@@ -48,18 +48,14 @@ namespace ProjNew.Processors
                 return;
             }
 
-            // TODO: Windows向けなのかMacOS/Linux向けなのかで分岐させる(v2.0.0以降)
-            var fileNameBuilder = new StringBuilder();
-            fileNameBuilder.Append( "cmd.exe" );
-            var commandBuilder = new StringBuilder();
-            commandBuilder.Append( "/c " );
+            var ret1 = CreateProcessFileNames4OS();
 
             // 5. Yesを選択したらPostCloneActionsの処理を外部プロセス起動で呼び出す
             foreach(var command in template.PostCloneActions)
             {
-                var argumentCommand = new StringBuilder( commandBuilder.ToString() );
+                var argumentCommand = new StringBuilder( ret1.argument );
                 argumentCommand.Append( command );
-                var process = new ExternalCommandProcess( fileNameBuilder.ToString(), argumentCommand.ToString() );
+                var process = new ExternalCommandProcess( ret1.fileName, argumentCommand.ToString() );
                 if (!process.Start())
                 {
                     Console.WriteLine( $"Quit the process because the {command} is failed." );
@@ -67,6 +63,19 @@ namespace ProjNew.Processors
                     return;
                 }
             }
+        }
+
+        private static (string fileName, string argument) CreateProcessFileNames4OS()
+        {
+            if(OperatingSystem.IsWindows())
+            {
+                return ("cmd.exe", "/c ");
+            }
+            else if(OperatingSystem.IsLinux() || OperatingSystem.IsLinux())
+            {
+                return ("/bin/bash", "-c ");
+            }
+            throw new Exception( "This OS was not supported." ); 
         }
 
         public static string CreateWarningMessage( TemplateDefinition templateDefinition )
