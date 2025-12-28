@@ -80,7 +80,7 @@ namespace ProjNew.Processors
             messageBuilder.AppendLine( "" );
             messageBuilder.AppendLine( "Commands to be executed:" );
             int count = 0;
-            foreach( var item in templateDefinition.PostCloneActions)
+            foreach(var item in templateDefinition.PostCloneActions)
             {
                 count++;
                 messageBuilder.AppendLine( $"{count}: {item}" );
