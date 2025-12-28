@@ -33,6 +33,8 @@ namespace ProjNew.Processors
 
             StringBuilder argument = new( "clone " );
             argument.Append( template.SourceUrl );
+            Console.WriteLine( $"NAME = {cmdLine.ProjectName}." );
+            //argument.Append( " " + cmdLine.ProjectName );
 
             var gitProcess = new GitProcess( argument.ToString(), template.DefaultBranch );
             if(!gitProcess.Start())

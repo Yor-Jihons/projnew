@@ -29,7 +29,7 @@ rem ------------------------- 関数定義 -------------------------
     rem %CSDEBUGEXE% new dummy
     rem %CSDEBUGEXE% -g
     rem %CSDEBUGEXE% list
-    %CSDEBUGEXE% list
+    %CSDEBUGEXE% --help
 exit /b 0
 
 :RunRelease

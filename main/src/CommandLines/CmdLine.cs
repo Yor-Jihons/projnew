@@ -19,21 +19,21 @@ namespace ProjNew.CommandLines
             var instance = new CmdLine();
 
             // 1. オプションと引数の定義
-            var nameOption = new Option<string>("The new project name", ["--name", "-n"])
-            {
-                Description = "The new project name"
-            };
-
             var templateArgument = new Argument<string>("template")
             {
-                Description = "Template-Name（例: electron）"
+                Description = "Template-Name（e.g. electron）"
+            };
+
+            var nameArgument = new Argument<string>("project-name")
+            {
+                Description = "The new project name"
             };
 
             // 2. コマンド（サブコマンド）の定義
             var newCommand = new Command("new", "Creates a new project.")
             {
                 templateArgument,
-                nameOption
+                nameArgument
             };
 
             var listCommand = new Command("list", "Lists available templates.");
@@ -61,7 +61,7 @@ namespace ProjNew.CommandLines
                 instance.Command = ProcessTypes.New;
                 // 型を明示的に指定して値を取得します
                 instance.Template = parseResult.GetValue<string>( templateArgument );
-                instance.ProjectName = parseResult.GetValue<string>(nameOption);
+                instance.ProjectName = parseResult.GetValue<string>(nameArgument);
             }
             else if (commandResult.Command.Name == "list")
             {
