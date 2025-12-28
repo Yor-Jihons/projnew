@@ -18,10 +18,13 @@ namespace ProjNew.Processors
                 throw new Exception( "Not found the templates." );
             }
 
+            Console.WriteLine( "" );
+            Console.WriteLine( "[Available Templates]" );
             foreach(var template in templateConfig.Templates)
             {
                 Console.WriteLine( $"{template.Id}: {template.Description}" );
             }
+            Console.WriteLine( "" );
         }
     }
 }
