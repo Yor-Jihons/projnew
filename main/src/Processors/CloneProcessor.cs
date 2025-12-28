@@ -43,7 +43,6 @@ namespace ProjNew.Processors
             // 4. PostCloneActionsの直前に「自己責任で使いましょう」とメッセージを出す
             if(isFirstStart)
             {
-                // TODO: メソッドとして切り出す
                 Console.Write( CreateWarningMessage( template ) );
                 var input = Console.ReadLine();
                 if(!string.Equals(input,"Y", StringComparison.OrdinalIgnoreCase))
