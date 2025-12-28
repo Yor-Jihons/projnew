@@ -15,7 +15,7 @@ namespace ProjNew.Processors
             if( command == CommandLines.ProcessTypes.List ) return new ListProcessor();
             if( command == CommandLines.ProcessTypes.New ) return new CloneProcessor();
             if( command == CommandLines.ProcessTypes.DefinitionFileGeneration ) return new DefinitionFileGenerationProcessor( definitionPath );
-        return null;
+            throw new Exception( "NOT FOUND COMMAND TYPE." );
         }
     }
 }
