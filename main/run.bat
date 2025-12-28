@@ -25,8 +25,11 @@ exit /b
 rem ------------------------- 関数定義 -------------------------
 
 :RunDebug
-    %CSDEBUGEXE% new name-of-target
+    rem %CSDEBUGEXE% new name-of-target
     rem %CSDEBUGEXE% new dummy
+    rem %CSDEBUGEXE% -g
+    rem %CSDEBUGEXE% list
+    %CSDEBUGEXE% list
 exit /b 0
 
 :RunRelease
