@@ -19,8 +19,10 @@ namespace ProjNew.CommandLines
             var instance = new CmdLine();
 
             // 1. オプションと引数の定義
-            var nameOption = new Option<string>("--name", "Project-name.");
-            nameOption.Aliases.Add( "-n" );
+            var nameOption = new Option<string>("The new project name", ["--name", "-n"])
+            {
+                Description = "The new project name"
+            };
 
             var templateArgument = new Argument<string>("template")
             {
