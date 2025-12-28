@@ -5,6 +5,7 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Linq;
 using ProjNew.Defintions;
+using System.Diagnostics;
 
 namespace ProjNew.Processors
 {
@@ -18,6 +19,14 @@ namespace ProjNew.Processors
                 DefinitionPath.CreateParentDirOnHome();
                 TemplateConfig.CreateDefaultDefinitionFile(DefinitionPath.FilePath);
             }
+
+            var si = new ProcessStartInfo()
+            {
+                FileName = DefinitionPath.FilePath,
+                UseShellExecute = true,
+                CreateNoWindow = true
+            };
+            Process.Start(si);
         }
 
         private DefinitionPath DefinitionPath { get; set; } = definitionPath;
