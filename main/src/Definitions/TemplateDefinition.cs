@@ -10,7 +10,7 @@ namespace ProjNew.Defintions
         public string Id{ get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("description")]
-        public string Description{ get; set; }
+        public string Description{ get; set; } = "";
 
         [System.Text.Json.Serialization.JsonPropertyName("sourceType")]
         public string SourceType{ get; set; } = "git";

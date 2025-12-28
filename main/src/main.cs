@@ -40,8 +40,7 @@ namespace ProjNew
 
                 // 2. 定義ファイルの場所を取得する
                 var defFile = new DefinitionPath();
-                bool isFirstStart = !defFile.Exists();
-                if(isFirstStart)
+                if(!defFile.Exists())
                 {
                     // 2.1. 無ければHOMEディレクトリ直下に`.projnew`ディレクトリを作成し、リソースを読み込んで定義ファイルを生成する
                     defFile.CreateParentDirOnHome();
@@ -59,7 +58,7 @@ namespace ProjNew
                 var processor = ProcessorFactory.Create( cmdline.Command, defFile );
 
                 // 5. `(4)`のオブジェクトが各処理をする
-                processor.Run( cmdline, templateConfig, isFirstStart );
+                processor.Run( cmdline, templateConfig );
             }
             catch( Exception e )
             {

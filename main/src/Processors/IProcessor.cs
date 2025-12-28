@@ -10,6 +10,6 @@ namespace ProjNew.Processors
 {
     public interface IProcessor
     {
-        void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig, bool isFirstStart );
+        void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig );
     }
 }
