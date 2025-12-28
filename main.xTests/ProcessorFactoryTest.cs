@@ -25,7 +25,7 @@ class DummyDefinitionPath : ProjNew.Defintions.IDefinitionPath
     public string ParentDirPath{ get; set; } = "";
 }
 
-public class UnitTest1
+public class ProcessorFactoryTest
 {
     [Fact]
     public void Test1()
