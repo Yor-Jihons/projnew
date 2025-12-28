@@ -27,7 +27,6 @@ namespace ProjNew.Processors
 
             StringBuilder argument = new( "clone " );
             argument.Append( template.SourceUrl );
-            Console.WriteLine( $"NAME = {cmdLine.ProjectName}." );
             argument.Append( " " + cmdLine.ProjectName );
 
             // 3. gitを外部プロセス起動で呼び出す
@@ -44,6 +43,7 @@ namespace ProjNew.Processors
             // 4. PostCloneActionsの直前に「自己責任で使いましょう」とメッセージを出す
             if(isFirstStart)
             {
+                // TODO: メソッドとして切り出す
                 var messageBuilder = new StringBuilder();
                 messageBuilder.AppendLine( "--------------------------------------------------------------------------------------------------" );
                 messageBuilder.AppendLine( "[ SECURITY WARNING: EXTERNAL COMMAND EXECUTION ]" );
