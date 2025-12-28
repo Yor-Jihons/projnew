@@ -11,7 +11,7 @@ namespace ProjNew.Processors
 {
     public class DefinitionFileGenerationProcessor(IDefinitionPath definitionPath) : IProcessor
     {
-        public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig, bool isFirstStart )
+        public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
         {
             if(!DefinitionPath.Exists())
             {

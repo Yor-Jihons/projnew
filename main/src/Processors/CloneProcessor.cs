@@ -13,7 +13,7 @@ namespace ProjNew.Processors
 {
     public class CloneProcessor : IProcessor
     {
-        public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig, bool isFirstStart )
+        public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
         {
             // 1. cmdline.Template が templateConfig.Templates 内にあるかどうか検索する
             var templates = templateConfig.Templates.Where( obj => string.Equals( obj.Id, cmdLine.Template ) ).ToList();
@@ -41,14 +41,11 @@ namespace ProjNew.Processors
             if(template.PostCloneActions.Count == 0) return;
 
             // 4. PostCloneActionsの直前に「自己責任で使いましょう」とメッセージを出す
-            if(isFirstStart)
+            Console.Write(CreateWarningMessage( template ) );
+            var input = Console.ReadLine();
+            if(!string.Equals(input,"Y", StringComparison.OrdinalIgnoreCase))
             {
-                Console.Write( CreateWarningMessage( template ) );
-                var input = Console.ReadLine();
-                if(!string.Equals(input,"Y", StringComparison.OrdinalIgnoreCase))
-                {
-                    return;
-                }
+                return;
             }
 
             // TODO: Windows向けなのかMacOS/Linux向けなのかで分岐させる(v2.0.0以降)
@@ -72,7 +69,7 @@ namespace ProjNew.Processors
             }
         }
 
-        public string CreateWarningMessage( TemplateDefinition templateDefinition )
+        public static string CreateWarningMessage( TemplateDefinition templateDefinition )
         {
             var messageBuilder = new StringBuilder();
             messageBuilder.AppendLine( "--------------------------------------------------------------------------------------------------" );
