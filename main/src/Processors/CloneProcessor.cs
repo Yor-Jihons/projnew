@@ -15,25 +15,21 @@ namespace ProjNew.Processors
     {
         public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig, bool isFirstStart )
         {
-            /// 1. cmdline.Template が templateConfig.Templates 内にあるかどうか検索する
-            /// 2. 無ければ例外を投げる
-            /// 3. (1)のTemplateDefinitionを取り出す
-            /// 4. gitを外部プロセス起動で呼び出す
-            /// 5. 初回起動時はPostCloneActionsの直前に「自己責任で使いましょう」とメッセージを出す
-            /// 6. Yesを選択したらPostCloneActionsの処理を外部プロセス起動で呼び出す
-
+            // 1. cmdline.Template が templateConfig.Templates 内にあるかどうか検索する
             var templates = templateConfig.Templates.Where( obj => string.Equals( obj.Id, cmdLine.Template ) ).ToList();
             if (templates.Count == 0)
             {
                 throw new Exception( "Not found the template." ); // TODO: Implement the exception.
             }
 
+            // 2. (1)のTemplateDefinitionを取り出す
             var template = templates[0];
-            Console.WriteLine( template );
 
             StringBuilder argument = new( "clone " );
             argument.Append( template.SourceUrl );
+            argument.Append( " " + cmdLine.ProjectName );
 
+            // 3. gitを外部プロセス起動で呼び出す
             var gitProcess = new GitProcess( argument.ToString(), template.DefaultBranch );
             if(!gitProcess.Start())
             {
@@ -44,8 +40,10 @@ namespace ProjNew.Processors
 
             if(template.PostCloneActions.Count == 0) return;
 
+            // 4. PostCloneActionsの直前に「自己責任で使いましょう」とメッセージを出す
             if(isFirstStart)
             {
+                // TODO: メソッドとして切り出す
                 var messageBuilder = new StringBuilder();
                 messageBuilder.AppendLine( "--------------------------------------------------------------------------------------------------" );
                 messageBuilder.AppendLine( "[ SECURITY WARNING: EXTERNAL COMMAND EXECUTION ]" );
@@ -82,6 +80,7 @@ namespace ProjNew.Processors
             var commandBuilder = new StringBuilder();
             commandBuilder.Append( "/c " );
 
+            // 5. Yesを選択したらPostCloneActionsの処理を外部プロセス起動で呼び出す
             foreach(var command in template.PostCloneActions)
             {
                 var argumentCommand = new StringBuilder( commandBuilder.ToString() );

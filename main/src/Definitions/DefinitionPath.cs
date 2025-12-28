@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace ProjNew.Defintions
 {
-    public class DefinitionPath
+    public class DefinitionPath : IDefinitionPath
     {
         public DefinitionPath()
         {

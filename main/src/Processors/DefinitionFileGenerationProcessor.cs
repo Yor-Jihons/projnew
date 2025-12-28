@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace ProjNew.Processors
 {
-    public class DefinitionFileGenerationProcessor(DefinitionPath definitionPath) : IProcessor
+    public class DefinitionFileGenerationProcessor(IDefinitionPath definitionPath) : IProcessor
     {
         public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig, bool isFirstStart )
         {
@@ -29,6 +29,6 @@ namespace ProjNew.Processors
             Process.Start(si);
         }
 
-        private DefinitionPath DefinitionPath { get; set; } = definitionPath;
+        private IDefinitionPath DefinitionPath { get; set; } = definitionPath;
     }
 }
