@@ -44,7 +44,7 @@ projnew -g
 This command attempts to generate the `projnew.templates.json` file in the **Global Configuration Path** (`$HOME/.projnew/`).
 
 **Conflict Resolution:**
-If the configuration file already exists in the global path, `projnew` will not overwrite it. Instead, it will create a new file with a sequential suffix (e.g., `projnew.templates.json.1`) to prevent loss of existing data. The tool exits immediately after generation.
+If the configuration file already exists in the global path, `projnew` will not overwrite it.
 
 ## Configuration File (`projnew.templates.json`)
 
@@ -52,7 +52,7 @@ If the configuration file already exists in the global path, `projnew` will not 
 
 The tool searches for the configuration file in this order:
 
-1. **Global Path (Fallback):** `$HOME/.projnew/projnew.templates.json`.
+1.  **Global Path (Fallback):** `$HOME/.projnew/projnew.templates.json`.
 
 If the file is not found, a sample file is **automatically generated** in the Global Path, and the session is marked as the "First Run."
 
