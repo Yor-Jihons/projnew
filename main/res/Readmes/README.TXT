@@ -52,8 +52,7 @@ If the configuration file already exists in the global path, `projnew` will not 
 
 The tool searches for the configuration file in this order:
 
-1.  **Portable Path (Highest Priority):** Directly in the same directory as the `projnew` executable.
-2.  **Global Path (Fallback):** `$HOME/.projnew/projnew.templates.json`.
+1. **Global Path (Fallback):** `$HOME/.projnew/projnew.templates.json`.
 
 If the file is not found, a sample file is **automatically generated** in the Global Path, and the session is marked as the "First Run."
 
