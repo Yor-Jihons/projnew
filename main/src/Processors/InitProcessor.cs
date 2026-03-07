@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace ProjNew.Processors
 {
-    public class DefinitionFileGenerationProcessor(IDefinitionPath definitionPath) : IProcessor
+    public class InitProcessor(IDefinitionPath definitionPath) : IProcessor
     {
         public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
         {
