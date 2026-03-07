@@ -30,9 +30,7 @@ namespace ProjNew
                 var defFile = new DefinitionPath();
                 if(!defFile.Exists())
                 {
-                    // 2.1. 無ければHOMEディレクトリ直下に`.projnew`ディレクトリを作成し、リソースを読み込んで定義ファイルを生成する
-                    defFile.CreateParentDirOnHome();
-                    TemplateConfig.CreateDefaultDefinitionFile(defFile.FilePath);
+                    throw new Exception( "Not found the definition file. After `projnew init`, then use this." );
                 }
 
                 // 3. 定義ファイルのデータを読み込む
