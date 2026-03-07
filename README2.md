@@ -31,14 +31,12 @@ To see all templates defined in your configuration file:
 projnew list
 ```
 
-### 3\. Force Configuration Generation (`-g`)
+### 3\. Force Configuration Generation (`init`)
 
 To manually generate the default configuration file:
 
 ```bash
-projnew --generate-config
-# OR
-projnew -g
+projnew init
 ```
 
 This command attempts to generate the `projnew.templates.json` file in the **Global Configuration Path** (`$HOME/.projnew/`).
