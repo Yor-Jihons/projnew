@@ -20,7 +20,9 @@ namespace ProjNew.Processors
                 TemplateConfig.CreateDefaultDefinitionFile(DefinitionPath.FilePath);
             }
 
-            // TODO: `git --version`を試して、gitがインストールされているか確認する処理を追加する
+            // `git --version`を試して、gitがインストールされているか確認する
+            var gitProcess = new GitProcess( "--version" );
+            gitProcess.Start();
 
             var si = new ProcessStartInfo()
             {
