@@ -38,7 +38,7 @@ namespace ProjNew.CommandLines
 
             var listCommand = new Command("list", "Lists available templates.");
 
-            var generationCommand = new Command("-g", "Generates the defintion file on the HOME directory.");
+            var generationCommand = new Command("init", "Generates the defintion file on the HOME directory.");
 
             // 3. ルートコマンドの構築
             var rootCommand = new RootCommand("projnew - The tool which creates the new-project from GitHub.")
