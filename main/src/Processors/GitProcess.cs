@@ -7,12 +7,14 @@ using System.Linq;
 using ProjNew.Defintions;
 using System.Diagnostics;
 using Microsoft.VisualBasic;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 
 namespace ProjNew.Processors
 {
     public class GitProcess
     {
-        public GitProcess( string arguments, string defualtBranch )
+        public GitProcess( string arguments, string defualtBranch = "main" )
         {
             process1 = new Process
             {
@@ -46,6 +48,6 @@ namespace ProjNew.Processors
             return isSuccess;
         }
 
-        private readonly Process process1;
+        protected readonly Process process1;
     }
 }

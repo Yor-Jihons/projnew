@@ -13,14 +13,16 @@ namespace ProjNew.Processors
     {
         public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
         {
+            // `git --version`を試して、gitがインストールされているか確認する
+            var gitProcess = new GitProcess( "--version" );
+            gitProcess.Start();
+
             if(!DefinitionPath.Exists())
             {
                 // 無ければHOMEディレクトリ直下に`.projnew`ディレクトリを作成し、リソースを読み込んで定義ファイルを生成する
                 DefinitionPath.CreateParentDirOnHome();
                 TemplateConfig.CreateDefaultDefinitionFile(DefinitionPath.FilePath);
             }
-
-            // TODO: `git --version`を試して、gitがインストールされているか確認する処理を追加する
 
             var si = new ProcessStartInfo()
             {
