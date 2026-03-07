@@ -74,5 +74,3 @@ projnew new テンプレート名 新規プロジェクト名
 
 ## 実装予定の機能
 
-* `projnew init`をした際に、すでに`$HOME/.projnew/projnew.templates.json`がある場合は`--force`オプションが指定されている場合は強制的に上書き、そうでなければ『すでに存在する』といったメッセージを出して終了するように仕向けること
-* `projnew init`をした際の処理の一部として、『`git --version`で「gitコマンドがインストールされているか」を確認する』処理
