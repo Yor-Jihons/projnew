@@ -17,18 +17,6 @@ namespace ProjNew
     {
         static void Main(string[] args)
         {
-            /*
-            var name = ConsoleUtil.AskText("Name? :");
-            Console.WriteLine("NAME = " + name);
-
-            var langList = new List<string>() { "C++", "C#", "TypeScript", "PHP" };
-            var lang = ConsoleUtil.AskWithChoices("The language you like :", langList);
-            Console.WriteLine(lang);
-
-            var ret = ConsoleUtil.AskWithChoices("Your name is {name}, your favorite language is {lang}, right?", ["Yes", "No"] );
-            Console.WriteLine($"You chooce {ret}.");
-            */
-
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
