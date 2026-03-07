@@ -28,14 +28,14 @@ namespace ProjNew
 
                 // 2. 定義ファイルの場所を取得する
                 var defFile = new DefinitionPath();
-                if(cmdline.Command != ProcessTypes.DefinitionFileGeneration && !defFile.Exists())
+                if(cmdline.Command != ProcessTypes.Init && !defFile.Exists())
                 {
                     throw new Exception( "Not found the definition file. After `projnew init`, then use this." );
                 }
 
                 // 3. 定義ファイルのデータを読み込む
                 TemplateConfig templateConfig = null;
-                if(cmdline.Command != ProcessTypes.DefinitionFileGeneration)
+                if(cmdline.Command != ProcessTypes.Init)
                 {
                     templateConfig = TemplateConfig.Load(defFile.FilePath);
                 }

@@ -69,7 +69,7 @@ namespace ProjNew.CommandLines
             }
             else if (commandResult.Command.Name == "init")
             {
-                instance.Command = ProcessTypes.DefinitionFileGeneration;
+                instance.Command = ProcessTypes.Init;
             }
 
             // 4. ヘルプなどの自動表示

@@ -12,6 +12,6 @@ namespace ProjNew.CommandLines
         Unknown,
         New,
         List,
-        DefinitionFileGeneration
+        Init
     }
 }
