@@ -27,7 +27,7 @@ rem ------------------------- 関数定義 -------------------------
 :RunDebug
     rem %CSDEBUGEXE% new name-of-target new-proj
     rem %CSDEBUGEXE% new dummy
-    %CSDEBUGEXE% -g
+    %CSDEBUGEXE% init
     rem %CSDEBUGEXE% list
     rem %CSDEBUGEXE% --help
 exit /b 0

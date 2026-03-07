@@ -28,7 +28,7 @@ namespace ProjNew
 
                 // 2. 定義ファイルの場所を取得する
                 var defFile = new DefinitionPath();
-                if(!defFile.Exists())
+                if(cmdline.Command != ProcessTypes.DefinitionFileGeneration && !defFile.Exists())
                 {
                     throw new Exception( "Not found the definition file. After `projnew init`, then use this." );
                 }

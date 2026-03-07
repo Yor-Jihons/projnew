@@ -67,7 +67,7 @@ namespace ProjNew.CommandLines
             {
                 instance.Command = ProcessTypes.List;
             }
-            else if (commandResult.Command.Name == "-g")
+            else if (commandResult.Command.Name == "init")
             {
                 instance.Command = ProcessTypes.DefinitionFileGeneration;
             }
