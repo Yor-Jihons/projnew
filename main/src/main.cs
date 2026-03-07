@@ -17,18 +17,6 @@ namespace ProjNew
     {
         static void Main(string[] args)
         {
-            /*
-            var name = ConsoleUtil.AskText("Name? :");
-            Console.WriteLine("NAME = " + name);
-
-            var langList = new List<string>() { "C++", "C#", "TypeScript", "PHP" };
-            var lang = ConsoleUtil.AskWithChoices("The language you like :", langList);
-            Console.WriteLine(lang);
-
-            var ret = ConsoleUtil.AskWithChoices("Your name is {name}, your favorite language is {lang}, right?", ["Yes", "No"] );
-            Console.WriteLine($"You chooce {ret}.");
-            */
-
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
@@ -40,16 +28,14 @@ namespace ProjNew
 
                 // 2. 定義ファイルの場所を取得する
                 var defFile = new DefinitionPath();
-                if(!defFile.Exists())
+                if(cmdline.Command != ProcessTypes.Init && !defFile.Exists())
                 {
-                    // 2.1. 無ければHOMEディレクトリ直下に`.projnew`ディレクトリを作成し、リソースを読み込んで定義ファイルを生成する
-                    defFile.CreateParentDirOnHome();
-                    TemplateConfig.CreateDefaultDefinitionFile(defFile.FilePath);
+                    throw new Exception( "Not found the definition file. After `projnew init`, then use this." );
                 }
 
                 // 3. 定義ファイルのデータを読み込む
                 TemplateConfig templateConfig = null;
-                if(cmdline.Command != ProcessTypes.DefinitionFileGeneration)
+                if(cmdline.Command != ProcessTypes.Init)
                 {
                     templateConfig = TemplateConfig.Load(defFile.FilePath);
                 }

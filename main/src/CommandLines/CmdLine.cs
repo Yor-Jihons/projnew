@@ -38,14 +38,14 @@ namespace ProjNew.CommandLines
 
             var listCommand = new Command("list", "Lists available templates.");
 
-            var generationCommand = new Command("-g", "Generates the defintion file on the HOME directory.");
+            var initCommand = new Command("init", "Generates the defintion file on the HOME directory.");
 
             // 3. ルートコマンドの構築
             var rootCommand = new RootCommand("projnew - The tool which creates the new-project from GitHub.")
             {
                 newCommand,
                 listCommand,
-                generationCommand
+                initCommand
             };
 
             // 4. 解析
@@ -67,9 +67,9 @@ namespace ProjNew.CommandLines
             {
                 instance.Command = ProcessTypes.List;
             }
-            else if (commandResult.Command.Name == "-g")
+            else if (commandResult.Command.Name == "init")
             {
-                instance.Command = ProcessTypes.DefinitionFileGeneration;
+                instance.Command = ProcessTypes.Init;
             }
 
             // 4. ヘルプなどの自動表示

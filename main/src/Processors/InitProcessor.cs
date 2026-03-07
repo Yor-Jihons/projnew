@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace ProjNew.Processors
 {
-    public class DefinitionFileGenerationProcessor(IDefinitionPath definitionPath) : IProcessor
+    public class InitProcessor(IDefinitionPath definitionPath) : IProcessor
     {
         public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
         {
@@ -19,6 +19,8 @@ namespace ProjNew.Processors
                 DefinitionPath.CreateParentDirOnHome();
                 TemplateConfig.CreateDefaultDefinitionFile(DefinitionPath.FilePath);
             }
+
+            // TODO: `git --version`を試して、gitがインストールされているか確認する処理を追加する
 
             var si = new ProcessStartInfo()
             {
