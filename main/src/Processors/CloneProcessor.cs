@@ -17,6 +17,8 @@ namespace ProjNew.Processors
 
         public Consoles.IConsole Console{ get; set; } = new Consoles.Console();
 
+        public IExternalCommandProcess ExternalCommandProcess{ get; set; } = new ExternalCommandProcess();
+
         public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
         {
             // 1. cmdline.Template が templateConfig.Templates 内にあるかどうか検索する
@@ -59,8 +61,8 @@ namespace ProjNew.Processors
             {
                 var argumentCommand = new StringBuilder( ret1.argument );
                 argumentCommand.Append( command );
-                var process = new ExternalCommandProcess( ret1.fileName, argumentCommand.ToString() );
-                if (!process.Start())
+                ExternalCommandProcess.Build();
+                if (!ExternalCommandProcess.Start())
                 {
                     throw new Exception( $"Quit the process because the {command} is failed." );
                 }

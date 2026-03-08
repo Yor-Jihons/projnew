@@ -10,16 +10,16 @@ using Microsoft.VisualBasic;
 
 namespace ProjNew.Processors
 {
-    public class ExternalCommandProcess
+    public class ExternalCommandProcess : IExternalCommandProcess
     {
-        public ExternalCommandProcess( string fileName, string argument )
+        public void Build()
         {
             process1 = new Process
             {
                 StartInfo = new ProcessStartInfo()
                 {
-                    FileName = fileName,
-                    Arguments = argument,
+                    FileName = this.FileName,
+                    Arguments = this.Argument,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
@@ -46,6 +46,9 @@ namespace ProjNew.Processors
             return isSuccess;
         }
 
-        private readonly Process process1;
+        private Process process1;
+
+        public string FileName{ get; set; }
+        public string Argument{ get; set; }
     }
 }
