@@ -14,6 +14,11 @@ class DummyDefinitionPath : ProjNew.Defintions.IDefinitionPath
         // DUMMY
     }
 
+    public void Create()
+    {
+        
+    }
+
     public bool Exists()
     {
         return true;
@@ -38,8 +43,8 @@ public class ProcessorFactoryTest
         var process2 = ProcessorFactory.Create( ProjNew.CommandLines.ProcessTypes.List, dummyData );
         Assert.IsType<ListProcessor>( process2 );
 
-        var process3 = ProcessorFactory.Create( ProjNew.CommandLines.ProcessTypes.DefinitionFileGeneration, dummyData );
-        Assert.IsType<DefinitionFileGenerationProcessor>( process3 );
+        var process3 = ProcessorFactory.Create( ProjNew.CommandLines.ProcessTypes.Init, dummyData );
+        Assert.IsType<InitProcessor>( process3 );
 
         var ex = Assert.Throws<Exception>( () => ProcessorFactory.Create( ProjNew.CommandLines.ProcessTypes.Unknown, dummyData ) );
         Assert.Equal( "NOT FOUND COMMAND TYPE.", ex.Message );
