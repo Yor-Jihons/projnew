@@ -11,7 +11,7 @@ namespace ProjNew.Defintions
 {
     public interface IDefinitionPath
     {
-        void CreateParentDirOnHome();
+        void Create();
 
         bool Exists();
 

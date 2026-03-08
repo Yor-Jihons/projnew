@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 using System.Threading;
 using System.CommandLine;
@@ -11,11 +10,13 @@ namespace ProjNew.Processors
 {
     public class ListProcessor : IProcessor
     {
+        public Consoles.IConsole Console{ get; set; } = new Consoles.Console();
+
         public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
         {
             if(templateConfig.Templates.Count == 0)
             {
-                throw new Exception( "Not found the templates." );
+                throw new System.Exception( "Not found the templates." );
             }
 
             Console.WriteLine( "" );

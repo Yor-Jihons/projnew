@@ -11,8 +11,14 @@ using System.Collections.Generic;
 
 namespace ProjNew.Processors
 {
-    public class CloneProcessor : IProcessor
+    public class CloneProcessor(IGitProcess gitProcess) : IProcessor
     {
+        private IGitProcess _gitProcess1 = gitProcess;
+
+        public Consoles.IConsole Console{ get; set; } = new Consoles.Console();
+
+        public IExternalCommandProcess ExternalCommandProcess{ get; set; } = new ExternalCommandProcess();
+
         public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
         {
             // 1. cmdline.Template が templateConfig.Templates 内にあるかどうか検索する
@@ -30,18 +36,18 @@ namespace ProjNew.Processors
             argument.Append( " " + cmdLine.ProjectName );
 
             // 3. gitを外部プロセス起動で呼び出す
-            var gitProcess = new GitProcess( argument.ToString(), template.DefaultBranch );
-            if(!gitProcess.Start())
+            _gitProcess1.Arguments = argument.ToString();
+            _gitProcess1.DefaultBranch = template.DefaultBranch;
+
+            if(!_gitProcess1.Start())
             {
-                Console.WriteLine( "Quit the process because the git-clone is failed." );
-                Environment.Exit(-1);
-                return;
+                throw new Exception( "Not found the command Git." );
             }
 
             if(template.PostCloneActions.Count == 0) return;
 
             // 4. PostCloneActionsの直前に「自己責任で使いましょう」とメッセージを出す
-            Console.Write(CreateWarningMessage( template ) );
+            Console.WriteLine(CreateWarningMessage( template ) );
             var input = Console.ReadLine();
             if(!string.Equals(input,"Y", StringComparison.OrdinalIgnoreCase))
             {
@@ -55,12 +61,10 @@ namespace ProjNew.Processors
             {
                 var argumentCommand = new StringBuilder( ret1.argument );
                 argumentCommand.Append( command );
-                var process = new ExternalCommandProcess( ret1.fileName, argumentCommand.ToString() );
-                if (!process.Start())
+                ExternalCommandProcess.Build();
+                if (!ExternalCommandProcess.Start())
                 {
-                    Console.WriteLine( $"Quit the process because the {command} is failed." );
-                    Environment.Exit(-1);
-                    return;
+                    throw new Exception( $"Quit the process because the {command} is failed." );
                 }
             }
         }
