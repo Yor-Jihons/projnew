@@ -15,6 +15,8 @@ namespace ProjNew.Processors
     {
         private IGitProcess _gitProcess1 = gitProcess;
 
+        public Consoles.IConsole Console{ get; set; } = new Consoles.Console();
+
         public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
         {
             // 1. cmdline.Template が templateConfig.Templates 内にあるかどうか検索する
@@ -43,7 +45,7 @@ namespace ProjNew.Processors
             if(template.PostCloneActions.Count == 0) return;
 
             // 4. PostCloneActionsの直前に「自己責任で使いましょう」とメッセージを出す
-            Console.Write(CreateWarningMessage( template ) );
+            Console.WriteLine(CreateWarningMessage( template ) );
             var input = Console.ReadLine();
             if(!string.Equals(input,"Y", StringComparison.OrdinalIgnoreCase))
             {
