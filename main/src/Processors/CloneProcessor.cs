@@ -11,8 +11,10 @@ using System.Collections.Generic;
 
 namespace ProjNew.Processors
 {
-    public class CloneProcessor : IProcessor
+    public class CloneProcessor(IGitProcess gitProcess) : IProcessor
     {
+        private IGitProcess _gitProcess1 = gitProcess;
+
         public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
         {
             // 1. cmdline.Template が templateConfig.Templates 内にあるかどうか検索する
@@ -30,10 +32,11 @@ namespace ProjNew.Processors
             argument.Append( " " + cmdLine.ProjectName );
 
             // 3. gitを外部プロセス起動で呼び出す
-            var gitProcess = new GitProcess( argument.ToString(), template.DefaultBranch );
-            if(!gitProcess.Start())
+            _gitProcess1.Arguments = argument.ToString();
+            _gitProcess1.DefaultBranch = template.DefaultBranch;
+
+            if(!_gitProcess1.Start())
             {
-                Console.WriteLine( "Quit the process because the git-clone is failed." );
                 throw new Exception( "Not found the command Git." );
             }
 

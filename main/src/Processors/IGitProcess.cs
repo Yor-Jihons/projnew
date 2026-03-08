@@ -14,6 +14,10 @@ namespace ProjNew.Processors
 {
     public interface IGitProcess
     {
+        string Arguments{ get; set; }
+
+        string DefaultBranch{ get; set; }
+
         bool Start();
     }
 }

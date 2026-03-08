@@ -14,14 +14,13 @@ namespace ProjNew.Processors
 {
     public class GitProcess : IGitProcess
     {
-        public GitProcess( string arguments, string defualtBranch = "main" )
+        public GitProcess()
         {
             process1 = new Process
             {
                 StartInfo = new ProcessStartInfo()
                 {
                     FileName = "git",
-                    Arguments = arguments,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
@@ -36,8 +35,14 @@ namespace ProjNew.Processors
             };
         }
 
+        public string Arguments{ get; set; } = "--version";
+
+        public string DefaultBranch{ get; set; } = "main";
+
         public bool Start()
         {
+            process1.StartInfo.Arguments = this.Arguments;
+
             process1.Start();
             process1.BeginErrorReadLine();
             process1.BeginOutputReadLine();

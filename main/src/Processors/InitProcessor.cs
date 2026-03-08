@@ -9,13 +9,15 @@ using System.Diagnostics;
 
 namespace ProjNew.Processors
 {
-    public class InitProcessor(IDefinitionPath definitionPath) : IProcessor
+    public class InitProcessor(IDefinitionPath definitionPath, IGitProcess gitProcess) : IProcessor
     {
         public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
         {
             // `git --version`を試して、gitがインストールされているか確認する
-            var gitProcess = new GitProcess( "--version" );
-            gitProcess.Start();
+            if(!_gitProcess1.Start())
+            {
+                throw new Exception( "Quit the process because the git-clone is failed." );
+            }
 
             if(!DefinitionPath.Exists())
             {
@@ -34,5 +36,7 @@ namespace ProjNew.Processors
         }
 
         private IDefinitionPath DefinitionPath { get; set; } = definitionPath;
+
+        private readonly IGitProcess _gitProcess1 = gitProcess;
     }
 }
