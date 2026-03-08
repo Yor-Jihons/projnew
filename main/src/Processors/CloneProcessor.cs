@@ -34,8 +34,7 @@ namespace ProjNew.Processors
             if(!gitProcess.Start())
             {
                 Console.WriteLine( "Quit the process because the git-clone is failed." );
-                Environment.Exit(-1);
-                return;
+                throw new Exception( "Not found the command Git." );
             }
 
             if(template.PostCloneActions.Count == 0) return;
@@ -58,9 +57,7 @@ namespace ProjNew.Processors
                 var process = new ExternalCommandProcess( ret1.fileName, argumentCommand.ToString() );
                 if (!process.Start())
                 {
-                    Console.WriteLine( $"Quit the process because the {command} is failed." );
-                    Environment.Exit(-1);
-                    return;
+                    throw new Exception( $"Quit the process because the {command} is failed." );
                 }
             }
         }
