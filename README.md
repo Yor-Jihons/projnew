@@ -74,6 +74,9 @@ projnew new テンプレート名 新規プロジェクト名
 
 ## 実装予定の機能
 
+* WindowsかUnix系かでコマンドを分岐させること(現時点ではWindowsのみ対応)
+
 ## プロジェクトの構成
 
 テストは`projnew/main.xUnits`ディレクトリ内にあり、本番プロジェクトは`projnew/main`ディレクトリ内にあります。
+
