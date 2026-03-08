@@ -18,7 +18,17 @@ namespace ProjNew.Defintions
             FilePath = Path.Join( ParentDirPath, fileName );
         }
 
-        public void CreateParentDirOnHome()
+        public void Create()
+        {
+            if(!this.Exists())
+            {
+                // 無ければHOMEディレクトリ直下に`.projnew`ディレクトリを作成し、リソースを読み込んで定義ファイルを生成する
+                this.CreateParentDirOnHome();
+                TemplateConfig.CreateDefaultDefinitionFile(this.FilePath);
+            }
+        }
+
+        private void CreateParentDirOnHome()
         {
             Directory.CreateDirectory( ParentDirPath );
         }

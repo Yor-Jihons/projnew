@@ -19,12 +19,7 @@ namespace ProjNew.Processors
                 throw new Exception( "Quit the process because the git-clone is failed." );
             }
 
-            if(!DefinitionPath.Exists())
-            {
-                // 無ければHOMEディレクトリ直下に`.projnew`ディレクトリを作成し、リソースを読み込んで定義ファイルを生成する
-                DefinitionPath.CreateParentDirOnHome();
-                TemplateConfig.CreateDefaultDefinitionFile(DefinitionPath.FilePath);
-            }
+            DefinitionPath.Create();
 
             var si = new ProcessStartInfo()
             {
