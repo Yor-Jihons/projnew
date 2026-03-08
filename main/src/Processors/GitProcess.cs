@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 
 namespace ProjNew.Processors
 {
-    public class GitProcess
+    public class GitProcess : IGitProcess
     {
         public GitProcess( string arguments, string defualtBranch = "main" )
         {
