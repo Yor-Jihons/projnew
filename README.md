@@ -71,6 +71,7 @@ projnew new テンプレート名 新規プロジェクト名
 * `$HOME/.projnew/projnew.templates.json`に記述されているテンプレートしか使えないとする
 * .NET8必須
 * 現時点では`git`コマンドのインストールが必須
+* 現時点ではWindowsのみ対応
 
 ## 実装予定の機能
 
