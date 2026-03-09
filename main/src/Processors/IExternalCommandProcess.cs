@@ -4,5 +4,8 @@ namespace ProjNew.Processors
     {
         void Build();
         bool Start();
+
+        string FileName{ get; set; }
+        string Argument{ get; set; }
     }
 }

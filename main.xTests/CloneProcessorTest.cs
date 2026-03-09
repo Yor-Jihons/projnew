@@ -5,9 +5,89 @@ using System;
 using Microsoft.VisualStudio.TestPlatform.Common.Utilities;
 using ProjNew.Defintions;
 using System.Linq.Expressions;
+using ProjNew.CommandLines;
+using ProjNew.Consoles;
 
 
 namespace main.xTests;
+
+
+public class CmdLine4Test : ICmdLine 
+{
+    // 解析結果を保持するプロパティ
+    public ProcessTypes Command { get; }
+    public string Template { get; } = "electron";
+    public string ProjectName { get; } = "new-proj";
+}
+
+
+public class ErrorExternalCommandProcess : IExternalCommandProcess
+{
+    public void Build()
+    {
+        
+    }
+
+    public bool Start()
+    {
+        return false;
+    }
+
+    public string FileName{ get; set; } = "";
+    public string Argument{ get; set; } = "";
+}
+
+public class SuccessExternalCommandProcess : IExternalCommandProcess
+{
+    public void Build()
+    {
+        
+    }
+
+    public bool Start()
+    {
+        return true;
+    }
+
+    public string FileName{ get; set; } = "";
+    public string Argument{ get; set; } = "";
+}
+
+
+class GitProcessSucess : IGitProcess
+{
+    public string Arguments{ get; set; } = "--version";
+    public string DefaultBranch{ get; set; } = "main";
+
+    public bool Start()
+    {
+        return true;
+    }
+}
+
+class ErrorGitProcess : IGitProcess
+{
+    public string Arguments{ get; set; } = "--version";
+    public string DefaultBranch{ get; set; } = "main";
+
+    public bool Start()
+    {
+        return false;
+    }
+}
+
+public class TestConsole : IConsole
+{
+    public void WriteLine( string text)
+    {
+        System.Console.WriteLine( "ok" );
+    }
+    public string ReadLine()
+    {
+        return "Y";
+    }
+}
+
 
 public class CloneProcessorTest
 {
@@ -62,5 +142,86 @@ public class CloneProcessorTest
         expected1 += "Do you want to proceed with executing these post-clone actions? (Y/n)\r\n";
         expected1 += "--------------------------------------------------------------------------------------------------\r\n";
         Assert.Equal( expected1, actual1 );
+    }
+
+    [Fact]
+    public void Test3()
+    {
+        CloneProcessor cloneProcessor1 = new(new GitProcessSucess())
+        {
+            ExternalCommandProcess = new SuccessExternalCommandProcess()
+        };
+
+        TemplateConfig templateConfig1 = new()
+        {
+            Templates = [
+                new TemplateDefinition(){
+                    Id = "electron",
+                    Description = "",
+                }
+            ]
+        };
+
+        cloneProcessor1.Run( new CmdLine4Test(), templateConfig1 );
+
+        TemplateConfig templateConfig2 = new()
+        {
+            Templates = []
+        };
+
+        var ex1 = Assert.Throws<System.Exception>( () => cloneProcessor1.Run( new CmdLine4Test(), templateConfig2 ) );
+        Assert.Equal( "Not found the template.", ex1.Message );
+    }
+
+    [Fact]
+    public void Test4()
+    {
+        CloneProcessor cloneProcessor1 = new(new ErrorGitProcess())
+        {
+            ExternalCommandProcess = new SuccessExternalCommandProcess(),
+            Console = new TestConsole()
+        };
+
+        TemplateConfig templateConfig1 = new()
+        {
+            Templates = [
+                new TemplateDefinition(){
+                    Id = "electron",
+                    Description = "",
+                    PostCloneActions = [
+                        "npm install"
+                    ]
+                }
+            ]
+        };
+
+        var ex1 = Assert.Throws<System.Exception>( () => cloneProcessor1.Run( new CmdLine4Test(), templateConfig1 ) );
+        Assert.Equal( "Not found the command Git.", ex1.Message );
+    }
+
+    [Fact]
+    public void Test5()
+    {
+        CloneProcessor cloneProcessor1 = new(new GitProcessSucess())
+        {
+            ExternalCommandProcess = new ErrorExternalCommandProcess(),
+            Console = new TestConsole()
+        };
+
+        TemplateConfig templateConfig1 = new()
+        {
+            Templates = [
+                new TemplateDefinition(){
+                    Id = "electron",
+                    Description = "",
+                    PostCloneActions = [
+                        "npm install"
+                    ]
+                }
+            ]
+        };
+
+        var ex1 = Assert.Throws<System.Exception>( () => cloneProcessor1.Run( new CmdLine4Test(), templateConfig1 ) );
+        Assert.Contains( "is failed.", ex1.Message );
     }
 }

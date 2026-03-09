@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ProjNew.CommandLines
 {
-    public class CmdLine
+    public class CmdLine : ICmdLine
     {
         // 解析結果を保持するプロパティ
         public ProcessTypes Command { get; private set; }

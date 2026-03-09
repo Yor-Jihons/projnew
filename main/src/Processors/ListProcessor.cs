@@ -12,7 +12,7 @@ namespace ProjNew.Processors
     {
         public Consoles.IConsole Console{ get; set; } = new Consoles.Console();
 
-        public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
+        public void Run( CommandLines.ICmdLine cmdLine, TemplateConfig templateConfig )
         {
             if(templateConfig.Templates.Count == 0)
             {

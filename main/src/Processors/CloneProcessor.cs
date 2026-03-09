@@ -19,7 +19,7 @@ namespace ProjNew.Processors
 
         public IExternalCommandProcess ExternalCommandProcess{ get; set; } = new ExternalCommandProcess();
 
-        public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
+        public void Run( CommandLines.ICmdLine cmdLine, TemplateConfig templateConfig )
         {
             // 1. cmdline.Template が templateConfig.Templates 内にあるかどうか検索する
             var templates = templateConfig.Templates.Where( obj => string.Equals( obj.Id, cmdLine.Template ) ).ToList();
@@ -61,6 +61,8 @@ namespace ProjNew.Processors
             {
                 var argumentCommand = new StringBuilder( ret1.argument );
                 argumentCommand.Append( command );
+                ExternalCommandProcess.FileName = ret1.fileName;
+                ExternalCommandProcess.Argument = argumentCommand.ToString();
                 ExternalCommandProcess.Build();
                 if (!ExternalCommandProcess.Start())
                 {

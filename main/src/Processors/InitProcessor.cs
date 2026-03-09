@@ -11,7 +11,7 @@ namespace ProjNew.Processors
 {
     public class InitProcessor(IDefinitionPath definitionPath, IGitProcess gitProcess) : IProcessor
     {
-        public void Run( CommandLines.CmdLine cmdLine, TemplateConfig templateConfig )
+        public void Run( CommandLines.ICmdLine cmdLine, TemplateConfig templateConfig )
         {
             // `git --version`を試して、gitがインストールされているか確認する
             if(!_gitProcess1.Start())
