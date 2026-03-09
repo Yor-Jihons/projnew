@@ -172,7 +172,6 @@ public class CloneProcessorTest
         var ex1 = Assert.Throws<System.Exception>( () => cloneProcessor1.Run( new CmdLine4Test(), templateConfig2 ) );
         Assert.Equal( "Not found the template.", ex1.Message );
 
-        // TODO: GitProcess.Startがfalse
         // TODO: PostCloneActionsが失敗する
     }
 
@@ -181,7 +180,7 @@ public class CloneProcessorTest
     {
         CloneProcessor cloneProcessor1 = new(new ErrorGitProcess())
         {
-            ExternalCommandProcess = new ErrorExternalCommandProcess()
+            ExternalCommandProcess = new SuccessExternalCommandProcess()
         };
 
         TemplateConfig templateConfig1 = new()
