@@ -61,6 +61,8 @@ namespace ProjNew.Processors
             {
                 var argumentCommand = new StringBuilder( ret1.argument );
                 argumentCommand.Append( command );
+                ExternalCommandProcess.FileName = ret1.fileName;
+                ExternalCommandProcess.Argument = argumentCommand.ToString();
                 ExternalCommandProcess.Build();
                 if (!ExternalCommandProcess.Start())
                 {
