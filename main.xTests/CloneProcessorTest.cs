@@ -5,9 +5,20 @@ using System;
 using Microsoft.VisualStudio.TestPlatform.Common.Utilities;
 using ProjNew.Defintions;
 using System.Linq.Expressions;
+using ProjNew.CommandLines;
 
 
 namespace main.xTests;
+
+
+public class CmdLine4Test : ICmdLine 
+{
+    // 解析結果を保持するプロパティ
+    public ProcessTypes Command { get; }
+    public string Template { get; } = "electron";
+    public string ProjectName { get; } = "new-proj";
+}
+
 
 class GitProcessSucess : IGitProcess
 {
