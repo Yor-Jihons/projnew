@@ -65,6 +65,17 @@ class GitProcessSucess : IGitProcess
     }
 }
 
+class ErrorGitProcess : IGitProcess
+{
+    public string Arguments{ get; set; } = "--version";
+    public string DefaultBranch{ get; set; } = "main";
+
+    public bool Start()
+    {
+        return false;
+    }
+}
+
 public class TestConsole : IConsole
 {
     public void WriteLine( string text)
@@ -136,7 +147,7 @@ public class CloneProcessorTest
     [Fact]
     public void Test3()
     {
-        CloneProcessor cloneProcessor1 = new( new GitProcessSucess())
+        CloneProcessor cloneProcessor1 = new(new GitProcessSucess())
         {
             ExternalCommandProcess = new SuccessExternalCommandProcess()
         };
@@ -162,6 +173,33 @@ public class CloneProcessorTest
         Assert.Equal( "Not found the template.", ex1.Message );
 
         // TODO: GitProcess.Startがfalse
-        // TODO: 
+        // TODO: PostCloneActionsが失敗する
+    }
+
+    [Fact]
+    public void Test4()
+    {
+        CloneProcessor cloneProcessor1 = new(new ErrorGitProcess())
+        {
+            ExternalCommandProcess = new ErrorExternalCommandProcess()
+        };
+
+        TemplateConfig templateConfig1 = new()
+        {
+            Templates = [
+                new TemplateDefinition(){
+                    Id = "electron",
+                    Description = "",
+                    PostCloneActions = [
+                        "npm install"
+                    ]
+                }
+            ]
+        };
+
+        var ex1 = Assert.Throws<System.Exception>( () => cloneProcessor1.Run( new CmdLine4Test(), templateConfig1 ) );
+        Assert.Equal( "Not found the command Git.", ex1.Message );
+
+        // TODO: PostCloneActionsが失敗する
     }
 }
