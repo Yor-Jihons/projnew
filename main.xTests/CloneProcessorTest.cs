@@ -80,7 +80,7 @@ public class TestConsole : IConsole
 {
     public void WriteLine( string text)
     {
-        
+        System.Console.WriteLine( "ok" );
     }
     public string ReadLine()
     {
@@ -171,8 +171,6 @@ public class CloneProcessorTest
 
         var ex1 = Assert.Throws<System.Exception>( () => cloneProcessor1.Run( new CmdLine4Test(), templateConfig2 ) );
         Assert.Equal( "Not found the template.", ex1.Message );
-
-        // TODO: PostCloneActionsが失敗する
     }
 
     [Fact]
@@ -180,7 +178,8 @@ public class CloneProcessorTest
     {
         CloneProcessor cloneProcessor1 = new(new ErrorGitProcess())
         {
-            ExternalCommandProcess = new SuccessExternalCommandProcess()
+            ExternalCommandProcess = new SuccessExternalCommandProcess(),
+            Console = new TestConsole()
         };
 
         TemplateConfig templateConfig1 = new()
@@ -198,7 +197,31 @@ public class CloneProcessorTest
 
         var ex1 = Assert.Throws<System.Exception>( () => cloneProcessor1.Run( new CmdLine4Test(), templateConfig1 ) );
         Assert.Equal( "Not found the command Git.", ex1.Message );
+    }
 
-        // TODO: PostCloneActionsが失敗する
+    [Fact]
+    public void Test5()
+    {
+        CloneProcessor cloneProcessor1 = new(new GitProcessSucess())
+        {
+            ExternalCommandProcess = new ErrorExternalCommandProcess(),
+            Console = new TestConsole()
+        };
+
+        TemplateConfig templateConfig1 = new()
+        {
+            Templates = [
+                new TemplateDefinition(){
+                    Id = "electron",
+                    Description = "",
+                    PostCloneActions = [
+                        "npm install"
+                    ]
+                }
+            ]
+        };
+
+        var ex1 = Assert.Throws<System.Exception>( () => cloneProcessor1.Run( new CmdLine4Test(), templateConfig1 ) );
+        Assert.Contains( "is failed.", ex1.Message );
     }
 }
