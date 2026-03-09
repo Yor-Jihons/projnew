@@ -9,6 +9,17 @@ using System.Linq.Expressions;
 
 namespace main.xTests;
 
+class GitProcessSucess : IGitProcess
+{
+    public string Arguments{ get; set; } = "--version";
+    public string DefaultBranch{ get; set; } = "main";
+
+    public bool Start()
+    {
+        return true;
+    }
+}
+
 public class CloneProcessorTest
 {
     [Fact]
