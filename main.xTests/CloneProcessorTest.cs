@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestPlatform.Common.Utilities;
 using ProjNew.Defintions;
 using System.Linq.Expressions;
 using ProjNew.CommandLines;
+using ProjNew.Consoles;
 
 
 namespace main.xTests;
@@ -20,6 +21,39 @@ public class CmdLine4Test : ICmdLine
 }
 
 
+public class ErrorExternalCommandProcess : IExternalCommandProcess
+{
+    public void Build()
+    {
+        
+    }
+
+    public bool Start()
+    {
+        return false;
+    }
+
+    public string FileName{ get; set; } = "";
+    public string Argument{ get; set; } = "";
+}
+
+public class SuccessExternalCommandProcess : IExternalCommandProcess
+{
+    public void Build()
+    {
+        
+    }
+
+    public bool Start()
+    {
+        return true;
+    }
+
+    public string FileName{ get; set; } = "";
+    public string Argument{ get; set; } = "";
+}
+
+
 class GitProcessSucess : IGitProcess
 {
     public string Arguments{ get; set; } = "--version";
@@ -30,6 +64,19 @@ class GitProcessSucess : IGitProcess
         return true;
     }
 }
+
+public class TestConsole : IConsole
+{
+    public void WriteLine( string text)
+    {
+        
+    }
+    public string ReadLine()
+    {
+        return "Y";
+    }
+}
+
 
 public class CloneProcessorTest
 {
@@ -86,4 +133,35 @@ public class CloneProcessorTest
         Assert.Equal( expected1, actual1 );
     }
 
+    [Fact]
+    public void Test3()
+    {
+        CloneProcessor cloneProcessor1 = new( new GitProcessSucess())
+        {
+            ExternalCommandProcess = new SuccessExternalCommandProcess()
+        };
+
+        TemplateConfig templateConfig1 = new()
+        {
+            Templates = [
+                new TemplateDefinition(){
+                    Id = "electron",
+                    Description = "",
+                }
+            ]
+        };
+
+        cloneProcessor1.Run( new CmdLine4Test(), templateConfig1 );
+
+        TemplateConfig templateConfig2 = new()
+        {
+            Templates = []
+        };
+
+        var ex1 = Assert.Throws<System.Exception>( () => cloneProcessor1.Run( new CmdLine4Test(), templateConfig2 ) );
+        Assert.Equal( "Not found the template.", ex1.Message );
+
+        // TODO: GitProcess.Startがfalse
+        // TODO: 
+    }
 }
