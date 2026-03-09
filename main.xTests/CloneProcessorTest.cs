@@ -85,4 +85,5 @@ public class CloneProcessorTest
         expected1 += "--------------------------------------------------------------------------------------------------\r\n";
         Assert.Equal( expected1, actual1 );
     }
+
 }
