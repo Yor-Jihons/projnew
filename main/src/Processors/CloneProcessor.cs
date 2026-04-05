@@ -70,6 +70,8 @@ namespace ProjNew.Processors
                     throw new Exception( $"Quit the process because the {command} is failed." );
                 }
             }
+
+            Console.WriteLine( "Done." );
         }
 
         private static (string fileName, string argument) CreateProcessFileNames4OS()
