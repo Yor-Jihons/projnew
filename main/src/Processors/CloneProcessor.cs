@@ -8,6 +8,7 @@ using ProjNew.Defintions;
 using System.Diagnostics;
 using Microsoft.VisualBasic;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ProjNew.Processors
 {
@@ -51,8 +52,11 @@ namespace ProjNew.Processors
             var input = Console.ReadLine();
             if(!string.Equals(input,"Y", StringComparison.OrdinalIgnoreCase))
             {
+                Console.WriteLine( "Canceled." );
                 return;
             }
+
+            Directory.SetCurrentDirectory( cmdLine.ProjectName );
 
             var ret1 = CreateProcessFileNames4OS();
 
@@ -69,6 +73,8 @@ namespace ProjNew.Processors
                     throw new Exception( $"Quit the process because the {command} is failed." );
                 }
             }
+
+            Console.WriteLine( "Done." );
         }
 
         private static (string fileName, string argument) CreateProcessFileNames4OS()
