@@ -8,6 +8,7 @@ using ProjNew.Defintions;
 using System.Diagnostics;
 using Microsoft.VisualBasic;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ProjNew.Processors
 {
@@ -54,6 +55,8 @@ namespace ProjNew.Processors
                 Console.WriteLine( "Canceled." );
                 return;
             }
+
+            Directory.SetCurrentDirectory( cmdLine.ProjectName );
 
             var ret1 = CreateProcessFileNames4OS();
 
