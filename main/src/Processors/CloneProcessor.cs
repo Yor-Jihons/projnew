@@ -51,6 +51,7 @@ namespace ProjNew.Processors
             var input = Console.ReadLine();
             if(!string.Equals(input,"Y", StringComparison.OrdinalIgnoreCase))
             {
+                Console.WriteLine( "Canceled." );
                 return;
             }
 
