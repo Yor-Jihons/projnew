@@ -18,7 +18,7 @@ GitHub上で管理しているボイラーテンプレートをcloneして、新
 
 ## デモ動画
 
-// TODO: ここに配置
+[リンク](https://youtu.be/EtnQNX9N6g0)
 
 ## 環境
 
